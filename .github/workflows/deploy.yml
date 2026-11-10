@@ -34,7 +34,8 @@ jobs:
           PREVIEW: '1'
           BASE_PATH: /${{ github.event.repository.name }}
       - name: Náhled nesmí jít do vyhledávačů
-        run: grep -q "Disallow: /$" dist/robots.txt
+        run: |
+          grep -q "Disallow: /$" dist/robots.txt
       - run: touch dist/.nojekyll
       - uses: actions/configure-pages@v5
         if: github.ref == 'refs/heads/main'
