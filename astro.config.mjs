@@ -11,9 +11,14 @@ const PREVIEW = process.env.PREVIEW === '1';
 // BASE_PATH=/clinic-samer-web → web běží v podsložce (GitHub Pages). Ostrý web běží v kořeni domény.
 const BASE = (process.env.BASE_PATH || '').replace(/\/$/, '');
 
-/** Odkazy v kódu jsou psané od kořene (/sluzby); při běhu v podsložce jim po buildu doplní BASE. */
+/**
+ * Odkazy v kódu jsou psané od kořene (/sluzby); při běhu v podsložce jim po buildu doplní BASE.
+ * @param {string} base
+ * @returns {import('astro').AstroIntegration}
+ */
 function rebase(base) {
   const attr = /(\s(?:href|src|action|data-full|poster)=")\/(?!\/)/g;
+  /** @type {(dir: string) => Promise<string[]>} */
   const walk = async (dir) => (await Promise.all((await readdir(dir, { withFileTypes: true })).map((e) =>
     e.isDirectory() ? walk(join(dir, e.name)) : e.name.endsWith('.html') ? [join(dir, e.name)] : []))).flat();
   return {
