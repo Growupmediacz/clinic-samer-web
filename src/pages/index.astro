@@ -1,0 +1,188 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import Steps from '../components/Steps.astro';
+import ServiceGrid from '../components/ServiceGrid.astro';
+import ReviewCard from '../components/ReviewCard.astro';
+import Ultrasound8k from '../components/Ultrasound8k.astro';
+import { site, insurers } from '../data/site';
+import { img, families } from '../data/images';
+import { homeFaq, firstVisitSteps } from '../data/faq';
+import { clinicSchema, faqSchema } from '../data/schema';
+import reviews from '../data/reviews.json';
+
+const picks = ['Mariana K.', 'Monika P.', 'Petr J.', 'Julia R.', 'Kristina', 'Smolyak', 'Iva P.', 'S.'];
+const featured = picks.map((n) => reviews.find((r) => r.name === n)!);
+const situations = [
+  { t: 'Plánuji miminko', d: 'Vyšetření před otěhotněním a doporučení, jak se připravit.', href: '/sluzby/lecba-neplodnosti', cls: 'card-plum' },
+  { t: 'Nedaří se nám počít', d: 'Diagnostika ženy i muže a návrh dalšího postupu pro pár.', href: '/sluzby/lecba-neplodnosti', cls: 'card-blush' },
+  { t: 'Čekám miminko', d: 'Těhotenská poradna, 3D/4D a nově 8K ultrazvuk. Partner je vítán.', href: '/sluzby/tehotenska-poradna-ultrazvuk', cls: 'card-sage' },
+  { t: 'Prevence nebo potíže', d: 'Preventivní prohlídka, antikoncepce, akutní i dlouhodobé obtíže.', href: '/sluzby/ambulantni-gynekologie', cls: 'card-line' },
+];
+---
+<Base
+  title="Gynekolog Praha 4 – MUDr. Samer Asad | Těhotenství, neplodnost, prevence"
+  description="Gynekologická ambulance MUDr. Samera Asada v Praze 4 – Braníku. Těhotenská poradna a ultrazvuk, léčba neplodnosti, prevence, tělíska a CO₂ laser. Přijímáme nové pacientky."
+  pageKey="home"
+  schema={[clinicSchema, faqSchema(homeFaq)]}
+>
+  <!-- HERO -->
+  <section class="wrap split" style="padding-block:clamp(40px,6vw,72px) clamp(56px,7vw,88px);gap:64px">
+    <div class="stack" style="--gap:28px">
+      <span class="chip chip-sage rise"><span class="dot dot-live" aria-hidden="true"></span>Přijímáme nové pacientky</span>
+      <h1 class="display rise" style="--i:1">Váš gynekolog na cestě <em>k miminku</em></h1>
+      <p class="lead rise" style="--i:2">Od prevence a plánování těhotenství přes léčbu neplodnosti až po těhotenskou poradnu. Osobně, srozumitelně a s časem na vaše otázky.</p>
+      <div class="row rise" style="--i:2">
+        <a class="btn btn-primary" data-magnetic href="/objednat" data-track="click_book">Objednat první návštěvu</a>
+        <a class="btn btn-outline" href={site.phoneHref} data-track="click_call">{site.phone}</a>
+      </div>
+      <p class="tiny rise" style="--i:3">Praha 4 · Braník · všechny zdravotní pojišťovny · {site.languages.cs.join(', ')}</p>
+    </div>
+    <div class="hero-photo rise" style="--i:1">
+      <div class="blob" aria-hidden="true"></div>
+      <div class="photo photo-arch hero-art" data-parallax>
+        <Image src={img.heroArt} alt="Květinová ilustrace ženského reprodukčního systému" widths={[440, 660, 880]} sizes="(max-width: 900px) 80vw, 440px" loading="eager" fetchpriority="high" />
+      </div>
+      <a class="badge" href="/recenze">
+        <b>4,9 / 5</b>
+        <span>700+ ověřených recenzí na ZnámýLékař</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section class="bg-blush">
+    <div class="wrap stats" style="padding-block:48px">
+      <div class="stat"><b data-count={site.stats.years} data-suffix="+">20+</b><span>let odborné praxe</span></div>
+      <div class="stat"><b data-count={site.stats.reviews} data-suffix="+">700+</b><span>ověřených recenzí</span></div>
+      <div class="stat"><b data-count={site.stats.rating} data-decimals="1" data-suffix=" / 5">4,9 / 5</b><span>průměrné hodnocení pacientek</span></div>
+      <div class="stat"><b data-count={site.stats.awards} data-suffix="×">4×</b><span>ocenění kvality ZnámýLékař 2022–2025</span></div>
+      <div class="stat"><b data-count="5">5</b><span>jazyků, kterými se domluvíte</span></div>
+    </div>
+  </section>
+
+  <!-- S ČÍM PŘICHÁZÍTE -->
+  <section class="wrap" style="padding-block:clamp(64px,9vw,104px) clamp(32px,5vw,56px)">
+    <div class="stack" style="--gap:12px;max-width:640px;margin-bottom:48px" data-reveal>
+      <span class="eyebrow">Péče podle vaší situace</span>
+      <h2 class="h2">S čím přicházíte?</h2>
+    </div>
+    <div class="grid-auto" style="--min:250px" data-stagger>
+      {situations.map((s) => (
+        <a class:list={['card situation', s.cls]} href={s.href}>
+          <span class="t">{s.t}</span>
+          <span class="d">{s.d} →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- SLUŽBY -->
+  <section class="wrap" style="padding-block:clamp(32px,5vw,56px) clamp(64px,9vw,104px)">
+    <div class="between" style="margin-bottom:40px" data-reveal>
+      <h2 class="h2 h2-sm" style="max-width:560px">Od prevence po cestu k rodičovství</h2>
+      <a class="link-arrow" href="/sluzby">Všechny služby</a>
+    </div>
+    <ServiceGrid />
+  </section>
+
+  <!-- LÉKAŘ -->
+  <section class="bg-plum" id="lekar">
+    <div class="wrap section split">
+      <div class="photo photo-leaf-br" style="height:clamp(380px,48vw,560px)" data-reveal>
+        <Image src={img.ultrasound} alt="MUDr. Samer Asad při ultrazvukovém vyšetření" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:70% 55%" />
+      </div>
+      <div class="stack" style="--gap:24px" data-reveal>
+        <span class="eyebrow">Lékař, který zná váš příběh</span>
+        <h2 class="h2" style="font-size:clamp(34px,4vw,52px)">MUDr. Samer Asad</h2>
+        <p class="lead">Atestovaný gynekolog a specialista na reprodukční medicínu. Každá cesta k rodičovství je jiná, proto staví péči na osobním vztahu, důkladném vysvětlení a návaznosti jednotlivých vyšetření.</p>
+        <div class="num-list">
+          <div><span class="no">01</span><span><strong>Jeden lékař, který zná váš příběh.</strong> <span>Vyšetření na sebe navazují, nezačínáte pokaždé znovu.</span></span></div>
+          <div><span class="no">02</span><span><strong>Partner je vítán.</strong> <span>Na konzultace a vybraná vyšetření můžete přijít společně.</span></span></div>
+          <div><span class="no">03</span><span><strong>Moderní diagnostika v ordinaci.</strong> <span>Výsledky vám pan doktor srozumitelně vysvětlí.</span></span></div>
+        </div>
+        <div class="row" style="gap:20px">
+          <a class="btn btn-light" href="/o-nas">Poznat pana doktora a sestru</a>
+          <span class="small muted">Sestra: Nataliia Asad, DiS.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8K ULTRAZVUK -->
+  <div style="height:clamp(64px,9vw,104px)"></div>
+  <Ultrasound8k compact />
+
+  <!-- PRVNÍ NÁVŠTĚVA -->
+  <section class="wrap section">
+    <div class="between" style="margin-bottom:56px" data-reveal>
+      <div class="stack" style="--gap:12px;max-width:640px">
+        <span class="eyebrow">Jednoduchý postup</span>
+        <h2 class="h2">Jak probíhá první návštěva</h2>
+      </div>
+      <a class="link-arrow" href="/prvni-navsteva">Průběh vyšetření a vaše práva</a>
+    </div>
+    <Steps steps={firstVisitSteps} />
+  </section>
+
+  <!-- RECENZE -->
+  <section class="bg-blush" id="recenze">
+    <div class="section">
+      <div class="wrap between" style="margin-bottom:36px" data-reveal>
+        <div class="stack" style="--gap:12px;max-width:600px">
+          <span class="eyebrow">Ověřené recenze ze ZnámýLékař</span>
+          <h2 class="h2">Zkušenosti žen, které nám důvěřily</h2>
+        </div>
+        <a class="link-arrow" href="/recenze">Všechny recenze</a>
+      </div>
+      <div class="marquee" tabindex="0" aria-label="Vybrané recenze pacientek">
+        <div class="marquee-track">
+          {featured.map((r) => <ReviewCard review={r} />)}
+          {featured.map((r) => <div class="dup" aria-hidden="true"><ReviewCard review={r} /></div>)}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PŘÍBĚHY -->
+  <section class="wrap section">
+    <div class="split">
+      <div class="stack" data-reveal>
+        <span class="eyebrow">Naše největší radost</span>
+        <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px)">Okamžiky, které dávají naší práci smysl</h2>
+        <p class="muted">Děkujeme rodinám, které nám dovolily sdílet část svého příběhu. Fotografie jsou zveřejněny s jejich souhlasem.</p>
+        <a class="link-arrow" href="/pribehy">Zobrazit galerii</a>
+      </div>
+      <div class="photo-quad" data-stagger>
+        {[families[0], families[1], families[2]].map((f, i) => (
+          <div class="photo"><Image src={f} alt={`Šťastná rodina v ordinaci MUDr. Samera Asada – foto ${i + 1}`} widths={[320, 560]} sizes="(max-width: 900px) 46vw, 280px" style="object-position:50% 30%" /></div>
+        ))}
+        <div class="photo"><Image src={img.newborn} alt="Novorozené miminko" widths={[320, 560]} sizes="(max-width: 900px) 46vw, 280px" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="wrap-narrow" style="padding-bottom:clamp(64px,9vw,104px)">
+    <div class="between" style="margin-bottom:32px" data-reveal>
+      <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px)">Co je dobré vědět před první návštěvou</h2>
+    </div>
+    <Faq items={homeFaq} openFirst />
+    <p style="margin-top:24px"><a class="link-arrow" href="/caste-dotazy">Všechny časté dotazy</a></p>
+  </section>
+
+  <!-- POJIŠŤOVNY -->
+  <section class="wrap" style="padding-bottom:clamp(48px,7vw,80px)">
+    <div class="between" data-reveal>
+      <div class="stack" style="--gap:8px;max-width:520px">
+        <span class="eyebrow">Smluvní zdravotní pojišťovny</span>
+        <p class="muted small">Běžná gynekologická péče je hrazena z veřejného pojištění. U samopláteckých vyšetření vás vždy předem informujeme o ceně.</p>
+      </div>
+      <div class="insurers">{insurers.map((i) => <span class="chip chip-line" title={i.name}>{i.short}{i.code && <small style="font-weight:500;opacity:.7">{i.code}</small>}</span>)}</div>
+    </div>
+  </section>
+
+  <Cta withContact source="homepage" />
+</Base>

@@ -1,0 +1,36 @@
+/* Design tokeny – „klidná prémiová klinika“. Dostupné i jako Tailwind utility (bg-plum-900, text-gold-700…). */
+@theme {
+  --color-plum-950: #2e2137;
+  --color-plum-900: #40304c;
+  --color-plum-700: #5a4868;
+  --color-plum-600: #6b5a78;
+  --color-plum-100: #e9dfea;
+
+  --color-gold-700: #86602e; /* akcent pro text (AA na cream) */
+  --color-gold-500: #b88e55; /* jen dekor, linky, velký text */
+  --color-gold-200: #e3c79a;
+
+  --color-cream-50: #fffdf9;
+  --color-cream-100: #fffaf6;
+  --color-blush-50: #faf3f0;
+  --color-blush-100: #f4e9e6;
+  --color-blush-150: #ede4df;
+  --color-blush-200: #e6d8d2;
+
+  --color-sage-200: #dde3d6;
+  --color-sage-300: #c9d2c0;
+  --color-sage-600: #4e6b43;
+  --color-sage-900: #2f3b2a;
+
+  --color-ink-900: #2a2330;
+  --color-ink-700: #4a4152;
+  --color-ink-500: #5e5566;
+
+  --color-line: #e3d9d4;
+  --color-line-strong: #d9cfcb;
+
+  --font-serif: 'Newsreader Variable', 'Newsreader', 'Noto Naskh Arabic Variable', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', 'Noto Sans Arabic Variable', system-ui, sans-serif;
+
+  --radius-card: 28px;
+}

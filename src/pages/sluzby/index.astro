@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import PageHero from '../../components/PageHero.astro';
+import { services } from '../../data/services';
+import { site } from '../../data/site';
+
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Služby', href: '/sluzby' }];
+const tone = { sage: 'card-sage', blush: 'card-blush', plum: 'card-plum' };
+const schema = {
+  '@context': 'https://schema.org', '@type': 'ItemList', name: 'Služby gynekologické ambulance',
+  itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: `${site.url}/sluzby/${s.slug}` })),
+};
+---
+<Base
+  title="Služby – gynekologie, těhotenství, neplodnost | MUDr. Samer Asad, Praha 4"
+  description="Přehled služeb gynekologické ambulance v Praze 4: těhotenská poradna, léčba neplodnosti, prevence, nitroděložní tělíska, hormonální potíže, CO₂ laser a online konzultace."
+  pageKey="services" schema={schema} breadcrumbs={crumbs}
+>
+  <PageHero eyebrow="Péče a služby" title="Od prevence po cestu k rodičovství" crumbs={crumbs}
+    lead="Ať miminko teprve plánujete, potřebujete pomoc s početím, čekáte dítě nebo hledáte dlouhodobou gynekologickou péči, společně najdeme vhodný další krok.">
+    <div class="row">
+      <a class="btn btn-primary" data-magnetic href="/objednat" data-track="click_book">Objednat se</a>
+      <a class="btn btn-light" href="/cenik">Ceník a pojišťovny</a>
+    </div>
+  </PageHero>
+
+  <section class="wrap section">
+    <div class="grid-auto" style="--min:340px" data-stagger>
+      {services.map((s) => (
+        <a class:list={['card', s.no === '01' ? tone.sage : s.no === '07' ? tone.plum : 'card-line']} href={`/sluzby/${s.slug}`} style="gap:14px;min-height:280px">
+          <span class="serif" style={`font-size:15px;color:${s.no === '07' ? 'var(--color-gold-200)' : 'var(--color-gold-700)'}`}>{s.no}</span>
+          <h2 class="serif" style="font-size:28px;line-height:1.15">{s.name}</h2>
+          <p class="small" style="opacity:.9;flex:1">{s.lead}</p>
+          <span class="small" style="font-weight:600">{s.chips.join(' · ')}</span>
+          <span class="small" style="font-weight:600">Více o službě →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-blush">
+    <div class="wrap section-sm between" style="align-items:center">
+      <div class="stack" style="--gap:10px;max-width:620px">
+        <h2 class="h2 h2-sm">Nevíte, kterou službu zvolit?</h2>
+        <p class="muted">V průvodci objednáním vyberete, s čím přicházíte, a my doporučíme vhodný typ návštěvy včetně délky a ceny.</p>
+      </div>
+      <a class="btn btn-primary" href="/objednat">Spustit průvodce objednáním</a>
+    </div>
+  </section>
+  <div style="height:clamp(64px,9vw,104px)"></div>
+  <Cta source="sluzby" />
+</Base>

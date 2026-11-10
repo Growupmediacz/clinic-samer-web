@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, bookingUrl } from '../data/site';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Objednat se', href: '/objednat' }];
+const reasons = [
+  { id: 'planuji-miminko', t: 'Plánuji miminko', s: 'Chci se připravit na těhotenství', visit: 'Konzultace před otěhotněním', dur: 'upřesníme při objednání', price: 'běžné vyšetření hradí pojišťovna', note: 'Probereme váš zdravotní stav a cyklus a doporučíme vhodná vyšetření.', more: '/sluzby/lecba-neplodnosti' },
+  { id: 'lecba-neplodnosti', t: 'Nedaří se nám počít', s: 'Hledáme příčinu a další postup', visit: 'Vstupní konzultace při potížích s početím', dur: 'přibližně 45 minut', price: 'od 2 500 Kč', note: 'Přijít můžete sama i s partnerem. Vezměte si dosavadní výsledky obou.', more: '/sluzby/lecba-neplodnosti' },
+  { id: 'tehotenska-poradna-ultrazvuk', t: 'Čekám miminko', s: 'Těhotenská poradna a ultrazvuk', visit: 'Těhotenská poradna', dur: 'upřesníme při objednání', price: 'hrazeno pojišťovnou', note: 'Při objednání uveďte, v jakém týdnu těhotenství jste. Partner je vítán.', more: '/sluzby/tehotenska-poradna-ultrazvuk' },
+  { id: 'ambulantni-gynekologie', t: 'Preventivní prohlídka', s: 'Pravidelná kontrola nebo nová registrace', visit: 'Preventivní gynekologická prohlídka', dur: 'přibližně 30 minut', price: 'hrazeno pojišťovnou', note: 'Přijímáme nové pacientky.', more: '/sluzby/ambulantni-gynekologie' },
+  { id: 'potize', t: 'Mám potíže', s: 'Bolest, výtok, krvácení, zánět', visit: 'Gynekologické vyšetření', dur: 'dle obtíží', price: 'hrazeno pojišťovnou', note: 'Při akutních potížích nám raději rovnou zavolejte – najdeme nejbližší možný termín. Při silném krvácení, prudké bolesti nebo horečce volejte 155 nebo vyhledejte pohotovost.', more: '/sluzby/ambulantni-gynekologie', callFirst: true },
+  { id: 'nitrodelozni-telisko', t: 'Antikoncepce nebo tělísko', s: 'Výběr, zavedení, výměna', visit: 'Konzultace antikoncepce / zavedení tělíska', dur: 'dle typu výkonu', price: 'dle typu tělíska', note: 'Zavedení tělíska plánujeme podle fáze cyklu.', more: '/sluzby/nitrodelozni-telisko' },
+  { id: 'hormonalni-poruchy', t: 'Hormonální potíže', s: 'Cyklus, PCOS, štítná žláza, menopauza', visit: 'Konzultace hormonálních potíží', dur: 'upřesníme při objednání', price: 'v rozsahu úhrady hrazeno pojišťovnou', note: 'Vezměte si záznam o cyklu a předchozí výsledky.', more: '/sluzby/hormonalni-poruchy' },
+  { id: 'obezitologicka-poradna', t: 'Hmotnost a metabolismus', s: 'Obezitologická poradna', visit: 'Vstupní konzultace v obezitologické poradně', dur: 'upřesníme při objednání', price: 'sdělíme při objednání', note: 'Sestavíme individuální plán péče.', more: '/sluzby/obezitologicka-poradna' },
+  { id: 'co2-laser-gynekologie', t: 'CO₂ laser', s: 'Změny po porodu, suchost, únik moči', visit: 'Konzultace před laserovým ošetřením', dur: 'upřesníme při objednání', price: 'balíček 3 procedur 7 000 Kč', note: 'Vhodnost ošetření nejprve posoudí lékař.', more: '/sluzby/co2-laser-gynekologie' },
+  { id: 'online-konzultace', t: 'Online konzultace', s: 'Videohovor z domova', visit: 'Online videokonzultace', dur: 'dle rezervace', price: '1 500 Kč', note: 'Vhodné pro výsledky, další postup a druhý názor. Nenahrazuje vyšetření.', more: '/sluzby/online-konzultace' },
+];
+---
+<Base
+  title="Objednat se ke gynekologovi – Praha 4 | MUDr. Samer Asad"
+  description="Objednejte se ke gynekologovi v Praze 4 online nebo telefonicky. Vyberte, s čím přicházíte, a doporučíme vhodný typ návštěvy, její délku a cenu. Přijímáme nové pacientky."
+  breadcrumbs={crumbs}
+>
+  <PageHero eyebrow="Objednání ve dvou krocích" title="S čím přicházíte?" crumbs={crumbs} narrow
+    lead="Vyberte důvod návštěvy. Doporučíme vhodný typ termínu a přesměrujeme vás do online kalendáře na ZnámýLékař – nebo nám jednoduše zavolejte." />
+
+  <section class="wrap section" data-wizard>
+    <p class="eyebrow" style="margin-bottom:20px">Krok 1 · Důvod návštěvy</p>
+    <div class="wizard-options" role="group" aria-label="Důvod návštěvy">
+      {reasons.map((r) => <button type="button" data-pick={r.id} aria-pressed="false"><b>{r.t}</b><span>{r.s}</span></button>)}
+    </div>
+
+    <p class="eyebrow" style="margin:56px 0 20px">Krok 2 · Doporučený typ návštěvy</p>
+    <p class="muted" data-wizard-hint hidden>Vyberte nahoře důvod návštěvy a zobrazíme doporučení.</p>
+    {reasons.map((r) => (
+      <div class="cta-block split wizard-result" data-result={r.id} tabindex="-1" style="margin-bottom:24px">
+        <div class="stack">
+          <span class="eyebrow">{r.t}</span>
+          <h2 class="h2 h2-sm">{r.visit}</h2>
+          <p>{r.note}</p>
+          <div class="row">
+            {r.callFirst ? (
+              <>
+                <a class="btn btn-primary" href={site.phoneHref} data-track="click_call">Zavolat {site.phone}</a>
+                <a class="btn btn-light" href={bookingUrl(r.id)} target="_blank" rel="noopener" data-track="click_book">Vybrat termín online</a>
+              </>
+            ) : (
+              <>
+                <a class="btn btn-primary" data-magnetic href={bookingUrl(r.id)} target="_blank" rel="noopener" data-track="click_book">Vybrat termín na ZnámýLékař</a>
+                <a class="btn btn-light" href={site.phoneHref} data-track="click_call">Zavolat {site.phone}</a>
+              </>
+            )}
+          </div>
+          <p class="tiny" style="color:inherit">Online kalendář provozuje ZnámýLékař; otevře se v novém okně.</p>
+        </div>
+        <div class="info-card">
+          <dl>
+            <div><dt>Délka návštěvy</dt><dd>{r.dur}</dd></div>
+            <div><dt>Cena</dt><dd>{r.price}</dd></div>
+            <div><dt>Kde</dt><dd>{r.id === 'online-konzultace' ? 'Online, odkaz obdržíte po objednání' : `${site.street}, ${site.city}`}</dd></div>
+          </dl>
+          <a class="link-arrow" href={r.more}>Více o službě</a>
+        </div>
+      </div>
+    ))}
+  </section>
+
+  <section class="bg-blush">
+    <div class="wrap section-sm grid-auto" style="--min:280px">
+      <div class="stack" style="--gap:8px"><h2 class="h3">Raději telefonicky?</h2><p class="small muted">Zavolejte na <a href={site.phoneHref} data-track="click_call">{site.phone}</a>. Sestra s vámi domluví vhodný termín.</p></div>
+      <div class="stack" style="--gap:8px"><h2 class="h3">Co si vzít s sebou</h2><p class="small muted">Průkaz pojištěnce, předchozí výsledky, seznam léků. <a href="/prvni-navsteva">Jak probíhá první návštěva</a></p></div>
+      <div class="stack" style="--gap:8px"><h2 class="h3">Do you speak English?</h2><p class="small muted">We do. <a href="/en" hreflang="en">Information in English</a></p></div>
+    </div>
+  </section>
+</Base>

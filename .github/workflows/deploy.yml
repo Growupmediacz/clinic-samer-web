@@ -1,0 +1,54 @@
+# Každý push do main: kontrola, build a náhled pro klienta na GitHub Pages
+# https://growupmediacz.github.io/clinic-samer-web/ – noindex, bez Google Analytics (PREVIEW=1).
+# Finální web na clinic-samer.cz se nasazuje zvlášť na VPS (deploy/README.md).
+name: Náhled na GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+        env:
+          PREVIEW: '1'
+          BASE_PATH: /${{ github.event.repository.name }}
+      - name: Náhled nesmí jít do vyhledávačů
+        run: grep -q "Disallow: /$" dist/robots.txt
+      - run: touch dist/.nojekyll
+      - uses: actions/configure-pages@v5
+        if: github.ref == 'refs/heads/main'
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

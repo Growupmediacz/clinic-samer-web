@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Faq from '../components/Faq.astro';
+import PageHero from '../components/PageHero.astro';
+import { faqGroups } from '../data/faq';
+import { faqSchema } from '../data/schema';
+import { site } from '../data/site';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Časté dotazy', href: '/caste-dotazy' }];
+---
+<Base
+  title="Časté dotazy | Gynekologie MUDr. Samer Asad, Praha 4"
+  description="Odpovědi na nejčastější otázky: objednání, první návštěva, doprovod partnera, neplodnost, těhotenská poradna, úhrada pojišťovnou a jazyky, kterými se v ordinaci domluvíte."
+  schema={faqSchema(faqGroups.flatMap((g) => g.items))} breadcrumbs={crumbs}
+>
+  <PageHero eyebrow="Nejčastější otázky" title="Co je dobré vědět před první návštěvou" crumbs={crumbs} narrow
+    lead="Připravili jsme odpovědi na otázky, které nám pacientky a páry pokládají nejčastěji.">
+    <div class="field" style="max-width:520px">
+      <label for="faq-q">Hledat v dotazech</label>
+      <input class="input" id="faq-q" type="search" placeholder="Např. partner, pojišťovna, těhotenství…" data-faq-search autocomplete="off" />
+    </div>
+  </PageHero>
+
+  <section class="wrap-narrow section">
+    <div class="stack" style="align-items:stretch;--gap:56px">
+      {faqGroups.map((g) => (
+        <div data-faq-group id={g.id}>
+          <h2 class="h2 h2-sm" style="margin-bottom:24px">{g.title}</h2>
+          <Faq items={g.items} />
+        </div>
+      ))}
+      <p data-faq-empty hidden class="muted">Na tento dotaz jsme odpověď nenašli. Napište nám nebo zavolejte – rádi poradíme.</p>
+      <div class="card card-blush between" style="align-items:center">
+        <div class="stack" style="--gap:6px"><h3 class="h3">Máte jinou otázku?</h3><p class="muted small">Napište nám nebo zavolejte na {site.phone}.</p></div>
+        <a class="btn btn-primary btn-sm" href="/kontakt">Napsat nám</a>
+      </div>
+    </div>
+  </section>
+  <Cta source="faq" />
+</Base>

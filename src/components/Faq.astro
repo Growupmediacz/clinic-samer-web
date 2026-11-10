@@ -1,0 +1,13 @@
+---
+import type { FaqItem } from '../data/faq';
+interface Props { items: FaqItem[]; openFirst?: boolean }
+const { items, openFirst = false } = Astro.props;
+---
+<div class="faq">
+  {items.map((f, i) => (
+    <details open={openFirst && i === 0}>
+      <summary>{f.q}</summary>
+      <p>{f.a}</p>
+    </details>
+  ))}
+</div>

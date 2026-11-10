@@ -1,0 +1,50 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import PageHero from '../components/PageHero.astro';
+import { families, img } from '../data/images';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Příběhy', href: '/pribehy' }];
+const photos = await Promise.all(
+  [...families.map((src, i) => ({ src, alt: `Šťastná rodina v ordinaci MUDr. Samera Asada – foto ${i + 1}` })), { src: img.newborn, alt: 'Novorozené miminko' }]
+    .map(async (p) => ({ ...p, full: (await getImage({ src: p.src, width: 1400, format: 'webp' })).src })),
+);
+---
+<Base
+  title="Příběhy – naše největší radost | MUDr. Samer Asad, Praha 4"
+  description="Okamžiky, které dávají naší práci smysl. Galerie rodin, které nám dovolily sdílet radost z nového začátku. Fotografie jsou zveřejněny se souhlasem rodin."
+  breadcrumbs={crumbs}
+>
+  <PageHero eyebrow="Naše největší radost" title="Okamžiky, které dávají naší práci smysl" crumbs={crumbs} tone="sage" narrow
+    lead="Děkujeme rodinám, které nám dovolily sdílet část svého příběhu a radost z nového začátku." />
+
+  <section class="wrap section">
+    <div class="gallery" data-stagger>
+      {photos.map((p) => (
+        <button type="button" data-full={p.full} data-alt={p.alt} aria-label={`Zvětšit: ${p.alt}`}>
+          <Image src={p.src} alt={p.alt} widths={[320, 480, 720]} sizes="(max-width: 600px) 92vw, (max-width: 900px) 46vw, 380px" />
+        </button>
+      ))}
+    </div>
+    <p class="tiny" style="margin-top:16px;text-align:center">Fotografie jsou zveřejněny se souhlasem rodin.</p>
+  </section>
+
+  <section class="bg-blush">
+    <div class="wrap-narrow section-sm stack" style="align-items:center;text-align:center">
+      <h2 class="h2">Každý nový začátek je důkazem, že čekání má smysl</h2>
+      <p class="lead">Vaše důvěra je to nejcennější, co v ordinaci máme.</p>
+      <a class="link-arrow" href="/sluzby/lecba-neplodnosti">Když se početí nedaří</a>
+    </div>
+  </section>
+  <div style="height:clamp(64px,9vw,104px)"></div>
+
+  <dialog class="lightbox" aria-label="Zvětšená fotografie">
+    <img src="" alt="" />
+    <div class="bar">
+      <button type="button" data-lb-prev aria-label="Předchozí fotografie">←</button>
+      <span data-lb-count style="color:#fff;font-size:14px"></span>
+      <span class="row" style="gap:8px"><button type="button" data-lb-next aria-label="Další fotografie">→</button><button type="button" data-lb-close>Zavřít</button></span>
+    </div>
+  </dialog>
+  <Cta source="pribehy" />
+</Base>

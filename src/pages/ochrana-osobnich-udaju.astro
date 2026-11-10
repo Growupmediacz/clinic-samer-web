@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Ochrana osobních údajů', href: '/ochrana-osobnich-udaju' }];
+---
+<Base title="Ochrana osobních údajů | MUDr. Samer Asad" description="Informace o zpracování osobních údajů pacientek gynekologické ambulance MUDr. Samera Asada v Praze 4." breadcrumbs={crumbs} pageKey="privacy">
+  <PageHero title="Ochrana osobních údajů" crumbs={crumbs} narrow
+    lead="Ochrana vašich osobních údajů je pro nás zásadní. Tento dokument popisuje, jaké osobní údaje zpracováváme, z jakého důvodu, jak dlouho je uchováváme a jaká práva vám podle nařízení (EU) 2016/679 (GDPR) náleží." />
+  <section class="wrap-narrow section">
+    <div class="prose">
+      <h2 style="margin-top:0">Správce osobních údajů</h2>
+      <p>{site.legalName.replace('–', '—')}, {site.street}, {site.zip} Praha 4. Kontakt pro veškeré dotazy k ochraně osobních údajů: <a href={`mailto:${site.email}`}>{site.email}</a>, <a href={site.phoneHref}>{site.phone}</a>.</p>
+
+      <h2>Jaké údaje zpracováváme</h2>
+      <ul>
+        <li>Identifikační a kontaktní údaje: jméno a příjmení, datum narození, rodné číslo, adresa, telefon, e-mail.</li>
+        <li>Údaje o zdravotním stavu (zvláštní kategorie údajů) vedené ve zdravotnické dokumentaci v rozsahu nezbytném pro poskytování zdravotní péče.</li>
+        <li>Údaje zdravotní pojišťovny nutné pro vyúčtování péče.</li>
+        <li>Údaje z komunikace: obsah e-mailů a objednávek, které nám zašlete.</li>
+        <li>Technické údaje z návštěvy webu: IP adresa, typ prohlížeče a údaje z cookies (podrobnosti najdete v <a href="/cookies">Zásadách používání cookies</a>).</li>
+      </ul>
+
+      <h2>Účely a právní základ zpracování</h2>
+      <ul>
+        <li>Poskytování zdravotních služeb a vedení zdravotnické dokumentace — plnění právní povinnosti a péče o zdraví (čl. 6 odst. 1 písm. c) a čl. 9 odst. 2 písm. h) GDPR, zákon č. 372/2011 Sb.).</li>
+        <li>Vyúčtování péče zdravotní pojišťovně — plnění právní povinnosti.</li>
+        <li>Objednání termínu a komunikace s vámi — plnění smlouvy, resp. oprávněný zájem na vyřízení vašeho dotazu.</li>
+        <li>Analytika návštěvnosti webu — výhradně na základě vašeho souhlasu uděleného v cookie liště.</li>
+      </ul>
+
+      <h2>Příjemci údajů</h2>
+      <p>Osobní údaje předáváme pouze tam, kde to ukládá zákon nebo je to nezbytné pro poskytnutí péče: zdravotním pojišťovnám, spolupracujícím laboratořím a specializovaným pracovištím, poskytovateli zdravotnického informačního systému a poskytovateli hostingu webu. Se všemi zpracovateli máme uzavřeny smlouvy o zpracování osobních údajů. Údaje nepředáváme mimo EU s výjimkou služby Google Analytics, kterou aktivujeme jen s vaším souhlasem.</p>
+      <p>Online objednání probíhá na portálu ZnámýLékař, který je samostatným správcem údajů zadaných při rezervaci.</p>
+
+      <h2>Doba uchování</h2>
+      <ul>
+        <li>Zdravotnická dokumentace: po dobu stanovenou vyhláškou č. 98/2012 Sb. (zpravidla 5 až 10 let od poslední péče).</li>
+        <li>Účetní a fakturační doklady: 10 let.</li>
+        <li>E-mailová komunikace bez navazující péče: nejdéle 12 měsíců.</li>
+        <li>Souhlas s cookies a související záznamy: 12 měsíců.</li>
+      </ul>
+
+      <h2>Vaše práva</h2>
+      <p>Máte právo na přístup ke svým údajům, na jejich opravu, na výmaz (nevztahuje se na zdravotnickou dokumentaci, kterou musíme ze zákona uchovávat), na omezení zpracování, na přenositelnost, právo vznést námitku a právo kdykoli odvolat udělený souhlas. Žádost stačí zaslat na <a href={`mailto:${site.email}`}>{site.email}</a>. Vyřídíme ji nejpozději do jednoho měsíce.</p>
+      <p>Pokud máte za to, že zpracováním vašich údajů porušujeme GDPR, můžete podat stížnost u Úřadu pro ochranu osobních údajů, Pplk. Sochora 27, 170 00 Praha 7, <a href="https://www.uoou.cz" target="_blank" rel="noopener">www.uoou.cz</a>.</p>
+
+      <h2>Cookies a analytika</h2>
+      <p>Web používá nezbytné cookies pro svůj provoz a — pouze s vaším souhlasem — analytické cookies služby Google Analytics 4. Souhlas můžete kdykoli změnit nebo odvolat v nastavení cookies v patičce webu. Podrobný přehled najdete v <a href="/cookies">Zásadách používání cookies</a>.</p>
+
+      <h2>Zabezpečení</h2>
+      <p>Přijali jsme technická a organizační opatření chránící údaje před ztrátou a neoprávněným přístupem: přístup do dokumentace mají jen pověřené osoby vázané mlčenlivostí, komunikace s webem probíhá šifrovaně přes HTTPS a systémy jsou pravidelně zálohovány.</p>
+
+      <h2>Technické zajištění webu</h2>
+      <p>Web vytvořila a spravuje <a href="https://growupmedia.cz/" target="_blank" rel="noopener">GrowUpMedia s.r.o.</a>, Korunní 2569/108, 101 00 Praha, IČO 21701148.</p>
+      <p class="tiny">Dokument byl naposledy aktualizován 10. 11. 2026.</p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,65 @@
+---
+import { site, insurers, bookingUrl, pagePath, type Lang } from '../data/site';
+import { services } from '../data/services';
+import { ui, dict } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const cs = lang === 'cs';
+const t = ui[lang];
+const year = new Date().getFullYear();
+const svcName = (s: (typeof services)[number]) => (cs ? s.name : dict[lang].items[s.slug].name);
+---
+<footer class="site-footer">
+  <div class="wrap cols">
+    <div>
+      <span class="serif" style="font-size:24px;color:var(--color-cream-100)" dir="ltr">Clinic Samer</span>
+      <p>{t.footerAbout}</p>
+      <p style="margin-top:8px">
+        <a href={site.mapsUrl} target="_blank" rel="noopener" data-track="click_map" dir="ltr">{site.street}, {site.zip} {site.city}</a><br />
+        <a href={site.phoneHref} data-track="click_call">{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+    </div>
+    <div>
+      <h3>{t.services}</h3>
+      {services.map((s) => <a href={cs ? `/sluzby/${s.slug}` : `${pagePath('services', lang)}#${s.slug}`}>{svcName(s)}</a>)}
+    </div>
+    <div>
+      <h3>{t.practice}</h3>
+      {cs ? (
+        <>
+          <a href="/o-nas">O nás</a>
+          <a href="/prvni-navsteva">První návštěva</a>
+          <a href="/cenik">Ceník a pojišťovny</a>
+          <a href="/recenze">Recenze</a>
+          <a href="/pribehy">Příběhy</a>
+          <a href="/caste-dotazy">Časté dotazy</a>
+          <a href="/kontakt">Kontakt</a>
+          <a href="/objednat">Objednat se</a>
+        </>
+      ) : (
+        <>
+          <a href={pagePath('about', lang)}>{t.about}</a>
+          <a href={pagePath('contact', lang)}>{t.contact}</a>
+          <a href={bookingUrl(`${lang}-footer`)} target="_blank" rel="noopener" data-track="click_book">{t.book}</a>
+          <a href="/" hreflang="cs" lang="cs">Česká verze</a>
+        </>
+      )}
+    </div>
+    <div>
+      <h3>{t.insuranceTitle}</h3>
+      <p dir="ltr">{insurers.map((i) => i.short).join(' · ')}</p>
+      <div class="logos">
+        {insurers.filter((i) => i.logo).map((i) => <img src={i.logo} alt={i.name} height="30" loading="lazy" decoding="async" />)}
+      </div>
+    </div>
+  </div>
+  <div class="wrap base">
+    <span><span dir="ltr">© {year} {site.legalName}</span>{cs && <> · Web: <a href="https://growupmedia.cz/" target="_blank" rel="noopener">GrowUpMedia</a></>}</span>
+    <span class="row" style="gap:8px 20px">
+      <a href={pagePath('cookies', lang)}>{t.cookiesLabel}</a>
+      <button type="button" data-cookie-open>{t.cookieSettings}</button>
+      <a href={pagePath('privacy', lang)}>{t.privacy}</a>
+    </span>
+  </div>
+</footer>

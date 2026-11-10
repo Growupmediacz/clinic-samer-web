@@ -1,0 +1,24 @@
+---
+import { site, bookingUrl, type Lang } from '../data/site';
+import { ui } from '../i18n';
+import ContactCard from './ContactCard.astro';
+interface Props { title?: string; text?: string; lang?: Lang; withContact?: boolean; source?: string }
+const { lang = 'cs', withContact = false, source = 'cta' } = Astro.props;
+const t = ui[lang].cta;
+const title = Astro.props.title ?? t.title;
+const text = Astro.props.text ?? t.text;
+---
+<section class="wrap" style="padding-bottom:clamp(64px,9vw,104px)" id="objednani">
+  <div class:list={['cta-block', withContact ? 'split' : 'between']} style={withContact ? '' : 'align-items:center'} data-reveal>
+    <div class="stack" style="max-width:560px">
+      <h2 class="h2">{title}</h2>
+      <p style="max-width:440px">{text}</p>
+      {!withContact && <p class="small"><span dir="ltr">{site.street}, {site.city}</span> · <a href={site.phoneHref} style="color:inherit" data-track="click_call">{site.phone}</a></p>}
+      <div class="row">
+        <a class="btn btn-primary" data-magnetic href={bookingUrl(source)} target="_blank" rel="noopener" data-track="click_book">{t.online}</a>
+        <a class="btn btn-light" href={site.phoneHref} data-track="click_call">{t.call}</a>
+      </div>
+    </div>
+    {withContact && <ContactCard lang={lang} />}
+  </div>
+</section>

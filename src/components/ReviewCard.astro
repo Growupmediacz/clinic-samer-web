@@ -1,0 +1,16 @@
+---
+import { ui } from '../i18n';
+import type { Lang } from '../data/site';
+interface Review { name: string; date: string; type: string; cat: string; lang: string; text: string }
+interface Props { review: Review; tone?: 'cream' | 'blush'; small?: boolean; showDate?: boolean; class?: string; lang?: Lang }
+const { review: r, tone = 'cream', small = false, showDate = false, class: cls = '', lang = 'cs' } = Astro.props;
+const t = ui[lang];
+const date = new Date(r.date).toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<figure class:list={['review', small && 'review-sm', cls]} style={tone === 'blush' ? 'background:var(--color-blush-100)' : undefined} data-cat={r.cat} data-lang={r.lang}>
+  <div class="stack" style="--gap:14px">
+    <span class="stars" role="img" aria-label={t.stars}>★★★★★</span>
+    <blockquote lang={r.lang} dir="ltr">„{r.text}“</blockquote>
+  </div>
+  <figcaption><strong dir="ltr">{r.name}</strong>{lang === 'cs' && <> · {r.type.toLowerCase()}</>}{showDate && <> · <time datetime={r.date}>{date}</time></>} · {t.verified}</figcaption>
+</figure>

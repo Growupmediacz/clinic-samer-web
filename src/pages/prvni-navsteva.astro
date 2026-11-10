@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import Steps from '../components/Steps.astro';
+import PageHero from '../components/PageHero.astro';
+import { firstVisitSteps } from '../data/faq';
+import { site } from '../data/site';
+import { img } from '../data/images';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'První návštěva', href: '/prvni-navsteva' }];
+const exam = [
+  { label: 'Krok 1', title: 'Rozhovor v klidu, oblečená', text: 'Nejprve si v ordinaci sednete s panem doktorem. Zeptá se na váš zdravotní stav, cyklus, léky a důvod návštěvy. Je to prostor i pro vaše otázky.' },
+  { label: 'Krok 2', title: 'Vysvětlení, co bude následovat', text: 'Než začne jakékoli vyšetření, pan doktor vám řekne, co a proč navrhuje. Vyšetření proběhne jen s vaším souhlasem.' },
+  { label: 'Krok 3', title: 'Vyšetření za asistence sestry', text: 'Odložíte si v soukromí. Gynekologické vyšetření a ultrazvuk probíhají šetrně, při vyšetření asistuje zdravotní sestra. Kdykoli můžete říct, že chcete přestat.' },
+  { label: 'Krok 4', title: 'Výsledky a další postup', text: 'Po vyšetření se obléknete a pan doktor vám srozumitelně vysvětlí nález a navrhne další kroky. Laboratorní výsledky sdělíme, jakmile je budeme mít.' },
+];
+const rights = [
+  { t: 'Doprovod podle vašeho přání', d: 'Na konzultaci i vyšetření s vámi může být partner nebo jiná blízká osoba.' },
+  { t: 'Přítomnost zdravotní sestry', d: 'Při vyšetření je přítomna zdravotní sestra. O její přítomnost můžete kdykoli výslovně požádat.' },
+  { t: 'Souhlas s každým krokem', d: 'Každé vyšetření i výkon vám předem vysvětlíme. Bez vašeho souhlasu se nic neděje a souhlas můžete kdykoli odvolat.' },
+  { t: 'Možnost vyšetření přerušit', d: 'Pokud je vám něco nepříjemné nebo to bolí, řekněte to. Vyšetření okamžitě přerušíme.' },
+  { t: 'Srozumitelné informace', d: 'Máte právo na informace o svém zdravotním stavu, navržené léčbě i jejích alternativách a na nahlédnutí do dokumentace.' },
+  { t: 'Soukromí a mlčenlivost', d: 'Vše, co v ordinaci zazní, podléhá lékařskému tajemství. Odkládáte si v soukromí.' },
+];
+---
+<Base
+  title="První návštěva – průběh vyšetření a vaše práva | MUDr. Samer Asad"
+  description="Jak probíhá první návštěva u gynekologa v Praze 4: objednání, co si vzít s sebou, průběh vyšetření krok za krokem a práva pacientky včetně doprovodu a přítomnosti sestry."
+  breadcrumbs={crumbs}
+>
+  <PageHero eyebrow="Jednoduchý postup" title="První návštěva: co vás čeká" crumbs={crumbs}
+    lead="Od objednání až po další péči vždy víte, co vás čeká a na koho se můžete obrátit. Otevřeně popisujeme i průběh vyšetření a vaše práva.">
+    <a class="btn btn-primary" data-magnetic href="/objednat" data-track="click_book">Objednat první návštěvu</a>
+    <div slot="aside" class="photo photo-leaf-r rise" style="height:clamp(300px,36vw,440px);--i:1">
+      <Image src={img.nurse} alt="Zdravotní sestra s pacientkou v ordinaci" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" loading="eager" style="object-position:50% 30%" />
+    </div>
+  </PageHero>
+
+  <section class="wrap section">
+    <h2 class="h2" style="margin-bottom:56px" data-reveal>Čtyři kroky k první návštěvě</h2>
+    <Steps steps={firstVisitSteps} />
+  </section>
+
+  <section class="bg-plum">
+    <div class="wrap split" style="padding-block:clamp(64px,8vw,96px);align-items:start">
+      <div class="stack" data-reveal>
+        <span class="eyebrow">Příprava</span>
+        <h2 class="h2">Co si vzít s sebou</h2>
+        <p class="lead">Nic z toho není podmínkou. Čím víc ale budeme vědět, tím lépe vám dokážeme poradit hned při první návštěvě.</p>
+      </div>
+      <ul class="plain-list" data-reveal>
+        <li><span>Průkaz pojištěnce a doklad totožnosti</span></li>
+        <li><span>Předchozí výsledky a lékařské zprávy</span></li>
+        <li><span>Seznam léků, které užíváte</span></li>
+        <li><span>Datum poslední menstruace</span></li>
+        <li><span>Těhotenský průkaz, pokud jste těhotná</span></li>
+        <li><span>Sepsané otázky, na které se chcete zeptat</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wrap split section" style="align-items:start;gap:64px" id="prubeh-vysetreni">
+    <div class="stack sticky-col" style="--gap:16px" data-reveal>
+      <span class="eyebrow">Průběh vyšetření</span>
+      <h2 class="h2">Jak vyšetření probíhá krok za krokem</h2>
+      <p class="muted">Gynekologické vyšetření je intimní záležitost. Proto chceme, abyste předem věděla, jak bude probíhat, a mohla se kdykoli zeptat nebo říct „stop“.</p>
+    </div>
+    <ol class="timeline">
+      {exam.map((st, i) => (
+        <li><details open={i === 0}><summary><span class="label">{st.label}</span><span class="title">{st.title}</span></summary><p>{st.text}</p></details></li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="bg-sage" id="vase-prava">
+    <div class="wrap section">
+      <div class="stack" style="--gap:12px;max-width:680px;margin-bottom:48px" data-reveal>
+        <span class="eyebrow">Vaše práva</span>
+        <h2 class="h2">Na co máte v ordinaci právo</h2>
+        <p>Dobrá péče stojí na důvěře a respektu. Tato práva platí při každé návštěvě, ne jen při té první.</p>
+      </div>
+      <div class="grid-auto" style="--min:300px" data-stagger>
+        {rights.map((r) => (
+          <div class="card card-cream stack" style="--gap:8px;color:var(--color-ink-900)">
+            <h3 class="h3">{r.t}</h3>
+            <p class="small muted" style="color:var(--color-ink-700)">{r.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap-narrow section" id="stiznosti">
+    <div class="prose" data-reveal>
+      <h2 class="h2" style="margin-top:0">Když nejste spokojená</h2>
+      <p>Pokud vám na péči cokoli vadí, řekněte nám to prosím – osobně, telefonicky nebo e-mailem na <a href={`mailto:${site.email}`}>{site.email}</a>. Každým podnětem se zabýváme.</p>
+      <p>Stížnost na poskytování zdravotních služeb můžete podle zákona o zdravotních službách podat:</p>
+      <ul>
+        <li><strong>poskytovateli</strong> – {site.company}, {site.street}, {site.zip} Praha 4; stížnost vyřídíme do 30 dnů,</li>
+        <li><strong>Magistrátu hlavního města Prahy</strong> (odbor zdravotnictví), pokud s vyřízením stížnosti nesouhlasíte – <a href="https://www.praha.eu" target="_blank" rel="noopener">praha.eu</a>,</li>
+        <li><strong>České lékařské komoře</strong>, jde-li o odborné nebo etické pochybení lékaře – <a href="https://www.lkcr.cz" target="_blank" rel="noopener">lkcr.cz</a>.</li>
+      </ul>
+      <p>Podání stížnosti nesmí být pacientce na újmu.</p>
+    </div>
+  </section>
+
+  <Cta source="prvni-navsteva" />
+</Base>

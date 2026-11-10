@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import { site } from '../../data/site';
+const crumbs = [{ name: 'Home', href: '/en' }, { name: 'Privacy Policy', href: '/en/privacy' }];
+---
+<Base lang="en" title="Privacy Policy | MUDr. Samer Asad" description="Information on the processing of personal data of patients at MUDr. Samer Asad's gynaecology practice in Prague 4." breadcrumbs={crumbs} pageKey="privacy">
+  <PageHero title="Privacy Policy" crumbs={crumbs} narrow
+    lead="Protecting your personal data matters to us. This document explains what personal data we process, why, how long we keep it and what rights you have under Regulation (EU) 2016/679 (GDPR)." />
+  <section class="wrap-narrow section">
+    <div class="prose">
+      <h2 style="margin-top:0">Data controller</h2>
+      <p>MUDr. Samer Asad — Gynekologická ambulance, {site.street}, {site.zip} Praha 4, Czech Republic. Contact for any privacy question: <a href={`mailto:${site.email}`}>{site.email}</a>, <a href={site.phoneHref}>{site.phone}</a>.</p>
+
+      <h2>Data we process</h2>
+      <ul>
+        <li>Identification and contact data: name, date of birth, personal identification number, address, phone, e-mail.</li>
+        <li>Health data (special category) kept in medical records to the extent required for providing care.</li>
+        <li>Health insurance details needed to bill the care provided.</li>
+        <li>Communication data: the content of e-mails and appointment requests you send us.</li>
+        <li>Technical data from your visit: IP address, browser type and cookie data (see the <a href="/en/cookies">Cookie Policy</a>).</li>
+      </ul>
+
+      <h2>Purposes and legal bases</h2>
+      <ul>
+        <li>Providing healthcare and keeping medical records — legal obligation and healthcare purposes (Art. 6(1)(c) and Art. 9(2)(h) GDPR, Czech Act No. 372/2011 Coll.).</li>
+        <li>Billing health insurers — legal obligation.</li>
+        <li>Booking appointments and communicating with you — performance of a contract or our legitimate interest in answering your request.</li>
+        <li>Website analytics — only on the basis of the consent you give in the cookie banner.</li>
+      </ul>
+
+      <h2>Recipients</h2>
+      <p>We share data only where the law requires it or where it is necessary to provide care: health insurers, cooperating laboratories and specialist centres, our medical information system provider and our website hosting provider. Data processing agreements are in place with all processors. We do not transfer data outside the EU, except for Google Analytics, which is activated only with your consent.</p>
+      <p>Online booking takes place on the ZnámýLékař portal, which is an independent controller of the data entered when booking.</p>
+
+      <h2>Retention</h2>
+      <ul>
+        <li>Medical records: for the period set by Czech Decree No. 98/2012 Coll. (usually 5 to 10 years after the last treatment).</li>
+        <li>Accounting and invoicing documents: 10 years.</li>
+        <li>E-mail correspondence with no follow-up care: up to 12 months.</li>
+        <li>Cookie consent and related records: 12 months.</li>
+      </ul>
+
+      <h2>Your rights</h2>
+      <p>You have the right to access your data, to rectification, to erasure (not applicable to medical records we must keep by law), to restriction of processing, to data portability, to object and to withdraw consent at any time. Send your request to <a href={`mailto:${site.email}`}>{site.email}</a> and we will handle it within one month.</p>
+      <p>If you believe we process your data unlawfully, you may lodge a complaint with the Czech Data Protection Authority (Úřad pro ochranu osobních údajů), Pplk. Sochora 27, 170 00 Prague 7, <a href="https://www.uoou.cz" target="_blank" rel="noopener">www.uoou.cz</a>.</p>
+
+      <h2>Cookies and analytics</h2>
+      <p>The website uses necessary cookies to operate and — only with your consent — Google Analytics 4 analytics cookies. You can change or withdraw consent at any time in the cookie settings in the site footer. A detailed cookie list is available in the <a href="/en/cookies">Cookie Policy</a>.</p>
+
+      <h2>Security</h2>
+      <p>We apply technical and organisational measures against loss and unauthorised access: only authorised staff bound by confidentiality can access records, communication with the website is encrypted over HTTPS, and systems are backed up regularly.</p>
+      <p class="tiny">This document was last updated on 10 November 2026.</p>
+    </div>
+  </section>
+</Base>

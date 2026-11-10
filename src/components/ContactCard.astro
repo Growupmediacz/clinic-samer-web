@@ -1,0 +1,45 @@
+---
+import { site, dayNames, bookingUrl, type Lang } from '../data/site';
+import { ui } from '../i18n';
+interface Props { lang?: Lang; mapHeight?: number }
+const { lang = 'cs', mapHeight = 180 } = Astro.props;
+const t = ui[lang].card;
+const days = ['mo', 'tu', 'we', 'th', 'fr', 'sa', 'su'] as const;
+const calendar = lang === 'cs' ? { href: '/objednat' } : { href: bookingUrl(`${lang}-hours`), target: '_blank', rel: 'noopener' };
+---
+<div class="info-card" data-hours={site.hours ? JSON.stringify(site.hours) : undefined} data-lang={lang}>
+  <dl>
+    <div>
+      <dt>{t.address}</dt>
+      <dd><a href={site.mapsUrl} target="_blank" rel="noopener" data-track="click_map" dir="ltr">{site.street}, {site.zip} {site.city}</a></dd>
+    </div>
+    <div>
+      <dt>{t.hours}</dt>
+      <dd>
+        {site.hours ? (
+          <>
+            <span class="chip chip-line" data-hours-status hidden style="margin:6px 0 10px"><span class="dot"></span><span></span></span>
+            <table class="hours">
+              {days.map((d) => (
+                <tr data-day={d}><td>{dayNames[lang][d]}</td><td dir="ltr">{site.hours![d] ? `${site.hours![d]![0]}–${site.hours![d]![1]}` : t.closed}</td></tr>
+              ))}
+            </table>
+          </>
+        ) : (
+          <>{t.hoursPre}<a {...calendar}>{t.hoursLink}</a>{t.hoursPost}</>
+        )}
+      </dd>
+    </div>
+    <div>
+      <dt>{t.contact}</dt>
+      <dd><a href={site.phoneHref} data-track="click_call">{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a></dd>
+    </div>
+  </dl>
+  <div class="map" style={`--map-h:${mapHeight}px`} data-map={site.mapsEmbed} data-title={t.mapTitle}>
+    <div class="ph">
+      <span dir="ltr">{site.street}, {site.city}</span>
+      <button class="btn btn-outline btn-sm" type="button">{t.showMap}</button>
+      <span class="tiny" style="font-size:12px">{t.loadsMap}</span>
+    </div>
+  </div>
+</div>

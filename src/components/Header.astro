@@ -1,0 +1,102 @@
+---
+import { Image } from 'astro:assets';
+import { site, navCs, bookingUrl, pagePath, LANGS, isLegal, type Lang, type PageKey } from '../data/site';
+import { services } from '../data/services';
+import { ui, dict } from '../i18n';
+import { img } from '../data/images';
+
+interface Props { lang: Lang; pageKey?: PageKey; path: string }
+const { lang, pageKey, path } = Astro.props;
+const t = ui[lang];
+const cs = lang === 'cs';
+const home = pagePath('home', lang);
+const servicesHref = pagePath('services', lang);
+const svcHref = (slug: string) => (cs ? `/sluzby/${slug}` : `${servicesHref}#${slug}`);
+const svc = (s: (typeof services)[number]) => (cs ? { name: s.name, short: s.short } : dict[lang].items[s.slug]);
+const items = cs ? navCs.items : [{ label: t.about, href: pagePath('about', lang) }, { label: t.contact, href: pagePath('contact', lang) }];
+const more = cs ? navCs.more : [];
+const bookHref = cs ? '/objednat' : bookingUrl(`${lang}-header`);
+const ext = cs ? {} : { target: '_blank', rel: 'noopener' };
+const active = (href: string) => (path === href || path.startsWith(href + '/') ? 'page' : undefined);
+// Přepínač jazyků: stejná stránka v jiném jazyce, jinak úvodní stránka daného jazyka.
+const langLinks = LANGS.map((l) => ({
+  l, ...ui[l],
+  href: pageKey && !(isLegal(pageKey) && l !== 'cs' && l !== 'en') ? pagePath(pageKey, l) : pagePath('home', l),
+}));
+---
+<a class="skip" href="#obsah">{t.skip}</a>
+<header class="site-header" data-header>
+  <div class="wrap bar">
+    <a class="brand" href={home} aria-label={`${site.name} – ${t.home}`}>
+      <Image src={img.logo} alt="" width={80} height={80} loading="eager" />
+      <span dir="ltr">Clinic Samer</span>
+    </a>
+    <nav class="main-nav" aria-label={t.navLabel}>
+      <div class="has-mega" data-mega>
+        <button type="button" aria-expanded="false" aria-controls="mega" class={path.startsWith(servicesHref) ? 'is-active' : ''}>
+          {t.services}
+          <svg class="chev" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+        </button>
+        <div class="mega" id="mega">
+          <div class="wrap mega-inner">
+            {services.map((s) => (
+              <a class="mega-link" href={svcHref(s.slug)}>
+                <span class="no" aria-hidden="true">{s.no}</span>
+                <span><strong>{svc(s).name}</strong><small>{svc(s).short}</small></span>
+              </a>
+            ))}
+            <div class="mega-aside">
+              <span class="eyebrow">{t.notSure}</span>
+              <p class="serif" style="font-size:22px;line-height:1.25">{t.megaText}</p>
+              <a class="btn btn-primary btn-sm" href={bookHref} data-track="click_book" {...ext}>{t.book}</a>
+              <a class="link-arrow" href={servicesHref}>{t.allServices}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {items.map((i) => <a href={i.href} aria-current={active(i.href)}>{i.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <details class="lang-menu" data-lang-menu>
+        <summary aria-label={`${t.switchLang}: ${t.name}`}>
+          {t.short}
+          <svg class="chev" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg>
+        </summary>
+        <div>
+          {langLinks.map((x) => <a href={x.href} hreflang={x.l} lang={x.l} aria-current={x.l === lang ? 'true' : undefined}>{x.name}</a>)}
+        </div>
+      </details>
+      <a class="btn btn-primary btn-sm" data-magnetic href={bookHref} data-track="click_book" {...ext}>{t.book}</a>
+      <button class="burger" type="button" aria-label={t.openMenu} aria-expanded="false" aria-controls="mobile-menu" data-menu-open>
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 6h14M3 10h14M3 14h14" /></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label={t.menu} data-menu inert>
+  <div class="top">
+    <a class="brand" href={home}><Image src={img.logo} alt="" width={68} height={68} /><span dir="ltr">Clinic Samer</span></a>
+    <button class="burger" style="display:inline-flex" type="button" aria-label={t.close} data-menu-close>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M5 5l10 10M15 5 5 15" /></svg>
+    </button>
+  </div>
+  <nav aria-label={t.menu}>
+    <details>
+      <summary>{t.services}<svg class="chev" aria-hidden="true" width="16" height="16" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 4.5 6 8l3.5-3.5" /></svg></summary>
+      <div>
+        {services.map((s) => <a href={svcHref(s.slug)}>{svc(s).name}</a>)}
+        <a href={servicesHref} style="font-weight:700">{t.allServices}</a>
+      </div>
+    </details>
+    {[...items, ...more].map((i) => <a href={i.href}>{i.label}</a>)}
+    <div class="lang-row" aria-label={t.switchLang}>
+      {langLinks.map((x) => <a href={x.href} hreflang={x.l} lang={x.l} aria-current={x.l === lang ? 'true' : undefined}>{x.name}</a>)}
+    </div>
+  </nav>
+  <div class="foot">
+    <a class="btn btn-primary" href={bookHref} data-track="click_book" {...ext}>{t.book}</a>
+    <a class="btn btn-light" href={site.phoneHref} data-track="click_call">{site.phone}</a>
+    <p class="tiny" style="text-align:center" dir="ltr">{site.street}, {site.city}</p>
+  </div>
+</div>

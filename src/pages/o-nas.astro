@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import { site } from '../data/site';
+import { img } from '../data/images';
+import { clinicSchema } from '../data/schema';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'O nás', href: '/o-nas' }];
+const values = [
+  { t: 'Jeden lékař, který zná váš příběh', d: 'Jednotlivá vyšetření na sebe navazují a nemusíte při každé návštěvě začínat znovu.' },
+  { t: 'Partner je vítán', d: 'Na konzultace a vybraná vyšetření můžete přijít společně, pokud si to přejete a charakter vyšetření to umožňuje.' },
+  { t: 'Moderní diagnostika v ordinaci', d: 'Důležitá vyšetření probíhají přímo v ordinaci a jejich výsledky vám pan doktor srozumitelně vysvětlí.' },
+];
+---
+<Base
+  title="O nás – MUDr. Samer Asad, gynekolog Praha 4 | Clinic Samer"
+  description="MUDr. Samer Asad – atestovaný gynekolog a specialista na reprodukční medicínu s více než 20 lety praxe. Poznejte lékaře, sestru a ordinaci v Praze 4 – Braníku."
+  pageKey="about" schema={clinicSchema} breadcrumbs={crumbs}
+>
+  <section class="bg-blush">
+    <div class="wrap">
+      <nav class="breadcrumbs" aria-label="Drobečková navigace"><a href="/">Úvod</a><span aria-hidden="true">/</span><span aria-current="page">O nás</span></nav>
+      <div class="page-hero split" style="gap:64px">
+        <div class="stack" style="--gap:22px">
+          <span class="eyebrow rise">Lékař, který zná váš příběh</span>
+          <h1 class="h1 rise" style="--i:1">MUDr. Samer Asad</h1>
+          <p class="serif rise" style="font-size:22px;color:var(--color-plum-900);--i:2">Atestovaný gynekolog a specialista na reprodukční medicínu</p>
+          <p class="lead rise" style="--i:2">Každá cesta k rodičovství je jiná. Proto pan doktor staví péči na osobním vztahu, důkladném vysvětlení a návaznosti jednotlivých vyšetření.</p>
+          <div class="row rise" style="--i:3">
+            <a class="btn btn-primary" data-magnetic href="/objednat" data-track="click_book">Objednat se</a>
+            <a class="btn btn-light" href="/recenze">Recenze pacientek</a>
+          </div>
+        </div>
+        <div class="photo photo-arch rise" style="height:clamp(340px,44vw,540px);--i:1">
+          <Image src={img.desk} alt="MUDr. Samer Asad ve své ordinaci" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" loading="eager" fetchpriority="high" style="object-position:50% 20%" transition:name="lekar" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section split" style="align-items:start">
+    <div class="stack prose" data-reveal>
+      <h2 class="h2" style="margin-top:0">Péče, která na sebe navazuje</h2>
+      <p>Od první návštěvy zná pan doktor váš příběh, sleduje další vývoj a pomáhá vám rozhodovat se s větší jistotou. Těhotenství ani léčbu neplodnosti nevnímá pouze jako sérii vyšetření, ale jako důležitou životní etapu ženy i jejího partnera.</p>
+      <p>V oboru působí více než {site.stats.years} let. V ordinaci se domluvíte {site.languages.cs.slice(0, -1).join(', ')} a {site.languages.cs.at(-1)}.</p>
+    </div>
+    <div class="card card-blush stack" data-reveal>
+      <h3 class="h3">Kvalifikace</h3>
+      <ul class="check-list">
+        <li>Specializovaná způsobilost v gynekologii a porodnictví</li>
+        <li>Specializace v asistované reprodukci</li>
+        <li>Licence pro samostatnou praxi a výkon odborného zástupce</li>
+        <li>Ocenění ZnámýLékař „Nejlepší kvalita péče“ 2022, 2023, 2024 a 2025</li>
+      </ul>
+      {/* TODO (klient): timeline vzdělání a praxe – 7 škol, pracoviště, roky. Viz PODKLADY-TODO.md */}
+    </div>
+  </section>
+
+  <section class="bg-plum">
+    <div class="wrap section">
+      <h2 class="h2" style="margin-bottom:48px;max-width:640px" data-reveal>Na čem v ordinaci stavíme</h2>
+      <div class="grid-auto" style="--min:300px;gap:40px" data-stagger>
+        {values.map((v, i) => (
+          <div class="stack" style="--gap:12px;border-top:1px solid var(--color-plum-600);padding-top:24px">
+            <span class="serif" style="color:var(--color-gold-200);font-size:40px;line-height:1">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h3">{v.t}</h3>
+            <p class="muted small">{v.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section split">
+    <div class="photo photo-leaf-r" style="height:clamp(360px,46vw,560px)" data-reveal>
+      <Image src={img.nurse} alt="Zdravotní sestra Nataliia Asad s pacientkou a její holčičkou v ordinaci" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:50% 30%" />
+    </div>
+    <div class="stack" data-reveal>
+      <span class="eyebrow">První kontakt a opora v ordinaci</span>
+      <h2 class="h2">Nataliia Asad, DiS.</h2>
+      <p class="serif" style="font-size:20px;color:var(--color-plum-900)">Zdravotní sestra · asistence při vyšetřeních a péče o pacientky</p>
+      <p class="muted">Zdravotní sestra je často první osobou, na kterou se při návštěvě obrátíte. Pomůže vám s organizací termínu, přípravou na vyšetření i praktickými otázkami spojenými s návštěvou ordinace.</p>
+      <p class="muted">Během vyšetření zajišťuje citlivou asistenci a dbá na to, abyste se v ordinaci cítila klidně a bezpečně.</p>
+      <ul class="check-list">
+        <li>Pomoc s objednáním a organizací návštěvy</li>
+        <li>Informace o přípravě na vyšetření</li>
+        <li>Citlivá asistence při výkonech a péči o pacientky</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-sage">
+    <div class="wrap section split">
+      <div class="stack" data-reveal>
+        <span class="eyebrow">Ordinace</span>
+        <h2 class="h2">Ultrazvuk i odběry přímo v ordinaci</h2>
+        <p>Ordinace sídlí na adrese {site.street} v Praze 4 – Braníku. Důležitá vyšetření včetně ultrazvuku a krevních odběrů probíhají na místě, takže nemusíte zbytečně přejíždět mezi pracovišti.</p>
+        <div class="row">
+          <a class="btn btn-primary" href="/kontakt">Kde nás najdete</a>
+          <a class="btn btn-light" href="/prvni-navsteva">Jak probíhá první návštěva</a>
+        </div>
+      </div>
+      <div class="photo photo-leaf-br" style="height:clamp(320px,40vw,480px)" data-reveal>
+        <Image src={img.ultrasound} alt="Ultrazvukové vyšetření v ordinaci MUDr. Samera Asada" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:70% 55%" />
+      </div>
+    </div>
+  </section>
+  <div style="height:clamp(64px,9vw,104px)"></div>
+  <Cta source="o-nas" />
+</Base>

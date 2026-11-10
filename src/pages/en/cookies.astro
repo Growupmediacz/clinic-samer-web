@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+const crumbs = [{ name: 'Home', href: '/en' }, { name: 'Cookies', href: '/en/cookies' }];
+---
+<Base lang="en" title="Cookie Policy | MUDr. Samer Asad" description="Information on the use of cookies on the website of MUDr. Samer Asad's gynaecology practice." breadcrumbs={crumbs} pageKey="cookies">
+  <PageHero title="Cookie Policy" crumbs={crumbs} narrow
+    lead="Cookies are small text files that websites store on your device. Necessary cookies are always active, all others only with your consent." />
+  <section class="wrap-narrow section">
+    <div class="prose">
+      <h2 style="margin-top:0">Cookie declaration</h2>
+      <p>The law allows us to store cookies on your device if they are strictly necessary for the operation of this site. For all other types of cookies we need your permission. You can change or withdraw your consent at any time.</p>
+      <p><button class="btn btn-primary btn-sm" type="button" data-cookie-open>Change cookie settings</button></p>
+      <p>Your consent applies to the domain <strong>clinic-samer.cz</strong> and is valid for 12 months. More about data processing in the <a href="/en/privacy">Privacy Policy</a>.</p>
+
+      <h2>Necessary</h2>
+      <p>Necessary cookies make the website usable. The website cannot function properly without them.</p>
+      <table>
+        <thead><tr><th>Name</th><th>Provider</th><th>Purpose</th><th>Storage period</th><th>Type</th></tr></thead>
+        <tbody><tr><td>clinic-samer-consent</td><td>clinic-samer.cz</td><td>Stores the cookie consent status for this domain, including the date of consent.</td><td>1 year</td><td>HTML local storage</td></tr></tbody>
+      </table>
+
+      <h2>Statistics</h2>
+      <p>Statistics cookies help us understand how visitors use the website. They are loaded only with your consent.</p>
+      <table>
+        <thead><tr><th>Name</th><th>Provider</th><th>Purpose</th><th>Storage period</th><th>Type</th></tr></thead>
+        <tbody>
+          <tr><td>_ga</td><td>Google</td><td>Registers a unique ID used to generate statistics on how the visitor uses the website.</td><td>2 years</td><td>HTTP cookie</td></tr>
+          <tr><td>_ga_#</td><td>Google</td><td>Used by Google Analytics to collect data on the number of visits and the dates of the first and most recent visit.</td><td>2 years</td><td>HTTP cookie</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Third-party content</h2>
+      <p>The Google map loads only after you click the “Show map” button. Only then may Google store its own cookies. Booking links lead to the ZnámýLékař portal, which follows its own policy.</p>
+
+      <h2>Marketing</h2>
+      <p>The website does not currently use marketing cookies. If we introduce them in the future, they will load only with your consent.</p>
+      <p class="tiny">This cookie declaration was last updated on 10 November 2026.</p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import PageHero from '../../components/PageHero.astro';
+import { services } from '../../data/services';
+import { bookingUrl, pagePath, INTL, type IntlLang } from '../../data/site';
+import { dict } from '../../i18n';
+
+export const getStaticPaths = () => INTL.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as IntlLang;
+const d = dict[lang], t = d.servicesPage;
+const crumbs = [{ name: d.ui.home, href: pagePath('home', lang) }, { name: d.ui.services, href: pagePath('services', lang) }];
+---
+<Base lang={lang} title={t.title} description={t.description} pageKey="services" breadcrumbs={crumbs}>
+  <PageHero eyebrow={t.eyebrow} title={t.h1} crumbs={crumbs} lead={t.lead}>
+    <a class="btn btn-primary" data-magnetic href={bookingUrl(`${lang}-services`)} target="_blank" rel="noopener" data-track="click_book">{d.ui.book}</a>
+  </PageHero>
+
+  <section class="wrap section">
+    <div class="stack" style="align-items:stretch;--gap:0;border-top:1px solid var(--color-line-strong)">
+      {services.map((s) => {
+        const x = d.items[s.slug];
+        return (
+          <article id={s.slug} class="split" style="align-items:start;padding-block:40px;border-bottom:1px solid var(--color-line-strong);gap:24px 64px" data-reveal>
+            <div class="stack" style="--gap:10px">
+              <span class="serif" style="color:var(--color-gold-700)">{s.no}</span>
+              <h2 class="h2 h2-sm">{x.name}</h2>
+              <span class="chip chip-sage">{x.meta}</span>
+            </div>
+            <div class="stack">
+              <p class="muted">{x.text}</p>
+              <div class="row" style="gap:8px 24px">
+                <a class="link-arrow" href={bookingUrl(`${lang}-${s.slug}`)} target="_blank" rel="noopener" data-track="click_book">{t.bookThis}</a>
+                <a class="small" href={`/sluzby/${s.slug}`} hreflang="cs">{t.detailsCz}</a>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+    <p class="tiny" style="margin-top:24px">{t.priceNote}</p>
+  </section>
+  <Cta lang={lang} source={`${lang}-services`} />
+</Base>

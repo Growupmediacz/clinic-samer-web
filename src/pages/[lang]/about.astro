@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import { bookingUrl, pagePath, INTL, type IntlLang } from '../../data/site';
+import { dict } from '../../i18n';
+import { img } from '../../data/images';
+import { clinicSchema } from '../../data/schema';
+
+export const getStaticPaths = () => INTL.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as IntlLang;
+const d = dict[lang], t = d.about;
+const crumbs = [{ name: d.ui.home, href: pagePath('home', lang) }, { name: d.ui.about, href: pagePath('about', lang) }];
+---
+<Base lang={lang} title={t.title} description={t.description} pageKey="about" schema={clinicSchema} breadcrumbs={crumbs}>
+  <section class="bg-blush">
+    <div class="wrap">
+      <nav class="breadcrumbs" aria-label="Breadcrumbs"><a href={crumbs[0].href}>{crumbs[0].name}</a><span aria-hidden="true">/</span><span aria-current="page">{crumbs[1].name}</span></nav>
+      <div class="page-hero split" style="gap:64px">
+        <div class="stack" style="--gap:22px">
+          <span class="eyebrow rise">{d.home.doctorEyebrow}</span>
+          <h1 class="h1 rise" style="--i:1" dir="ltr">MUDr. Samer Asad</h1>
+          <p class="serif rise" style="font-size:22px;color:var(--color-plum-900);--i:2">{t.role}</p>
+          <p class="lead rise" style="--i:2">{t.lead}</p>
+          <a class="btn btn-primary rise" style="--i:3" data-magnetic href={bookingUrl(`${lang}-about`)} target="_blank" rel="noopener" data-track="click_book">{d.ui.book}</a>
+        </div>
+        <div class="photo photo-arch rise" style="height:clamp(340px,44vw,540px);--i:1">
+          <Image src={img.desk} alt={t.photoAlt} widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" loading="eager" fetchpriority="high" style="object-position:50% 20%" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section split" style="align-items:start">
+    <div class="stack prose" data-reveal>
+      <h2 class="h2" style="margin-top:0">{t.h2}</h2>
+      <p>{t.p1}</p>
+      <p>{t.p2}</p>
+    </div>
+    <div class="card card-blush stack" data-reveal>
+      <h3 class="h3">{t.qualTitle}</h3>
+      <ul class="check-list">{t.quals.map((q) => <li>{q}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="bg-sage">
+    <div class="wrap section split">
+      <div class="photo photo-leaf-r" style="height:clamp(360px,46vw,560px)" data-reveal>
+        <Image src={img.nurse} alt={t.nurseAlt} widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:50% 30%" />
+      </div>
+      <div class="stack" data-reveal>
+        <span class="eyebrow">{t.nurseEyebrow}</span>
+        <h2 class="h2" dir="ltr">Nataliia Asad, DiS.</h2>
+        <p>{t.nurseText}</p>
+        <ul class="check-list">{t.nurseList.map((q) => <li>{q}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+  <div style="height:clamp(64px,9vw,104px)"></div>
+  <Cta lang={lang} source={`${lang}-about`} />
+</Base>

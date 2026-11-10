@@ -1,0 +1,168 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Cta from '../../components/Cta.astro';
+import Faq from '../../components/Faq.astro';
+import ReviewCard from '../../components/ReviewCard.astro';
+import Ultrasound8k from '../../components/Ultrasound8k.astro';
+import { services, getService, type Service } from '../../data/services';
+import { site } from '../../data/site';
+import { img } from '../../data/images';
+import { faqSchema } from '../../data/schema';
+import reviews from '../../data/reviews.json';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: Service };
+const heroBg = { sage: 'bg-sage', blush: 'bg-blush', plum: 'bg-plum' }[s.tone];
+const photoShape = { sage: 'photo-leaf-r', blush: 'photo-arch', plum: 'photo-leaf-br' }[s.tone];
+const photoPos: Record<string, string> = { ultrasound: '70% 55%', desk: '50% 20%', nurse: '50% 30%', newborn: '50% 50%', ivf: '50% 50%' };
+const related = s.related.map(getService);
+const svcReviews = reviews.filter((r) => s.reviewCats.includes(r.cat) && r.text.length > 60 && r.lang === 'cs').slice(0, 2);
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Služby', href: '/sluzby' }, { name: s.name, href: `/sluzby/${s.slug}` }];
+const isPregnancy = s.slug === 'tehotenska-poradna-ultrazvuk';
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'MedicalProcedure',
+    name: s.name, description: s.lead, url: `${site.url}/sluzby/${s.slug}`,
+    howPerformed: s.steps.map((x) => x.title).join(' → '),
+    preparation: s.prepare.join(', '),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: s.name, description: s.short, serviceType: s.name,
+    areaServed: 'Praha', provider: { '@id': `${site.url}/#klinika` }, url: `${site.url}/sluzby/${s.slug}`,
+  },
+  faqSchema(s.faq),
+];
+---
+<Base title={s.seo.title} description={s.seo.description} schema={schema} breadcrumbs={crumbs}>
+  <!-- HERO -->
+  <section class={heroBg}>
+    <div class="wrap">
+      <nav class="breadcrumbs" aria-label="Drobečková navigace">
+        <a href="/">Úvod</a><span aria-hidden="true">/</span><a href="/sluzby">Služby</a><span aria-hidden="true">/</span><span aria-current="page">{s.name}</span>
+      </nav>
+      <div class="page-hero split" style="gap:64px">
+        <div class="stack" style="--gap:24px">
+          <span class="eyebrow rise">{s.eyebrow}</span>
+          <h1 class="h1 rise" style="--i:1">{s.name}</h1>
+          <p class="lead rise" style="--i:2">{s.lead}</p>
+          <div class="row rise" style="--i:2">
+            <a class="btn btn-primary" data-magnetic href={`/objednat?duvod=${s.slug}`} data-track="click_book">Objednat se</a>
+            <a class="btn btn-light" href={site.phoneHref} data-track="click_call">{site.phone}</a>
+          </div>
+          <div class="row" style="gap:10px">{s.chips.map((c) => <span class="chip">{c}</span>)}</div>
+        </div>
+        <div class:list={['photo', photoShape, 'rise']} style="height:clamp(320px,42vw,500px);--i:1">
+          <Image src={img[s.image]} alt={s.imageAlt} widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" loading="eager" fetchpriority="high" style={`object-position:${photoPos[s.image]}`} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRO KOHO -->
+  <section class="wrap" style="padding-block:clamp(64px,9vw,104px) clamp(40px,6vw,72px)">
+    <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px);margin-bottom:40px" data-reveal>{s.forWhomTitle}</h2>
+    <div class="grid-auto" style="--min:300px" data-stagger>
+      {s.forWhom.map((f) => (
+        <div class="card card-blush stack" style="--gap:10px">
+          <h3 class="h3">{f.title}</h3>
+          <p class="small muted">{f.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- JAK PROBÍHÁ -->
+  <section class="wrap split" style="padding-block:32px clamp(64px,9vw,104px);gap:64px;align-items:start">
+    <div class="stack sticky-col" style="--gap:16px" data-reveal>
+      <span class="eyebrow">{s.stepsEyebrow}</span>
+      <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px)">{s.stepsTitle}</h2>
+      <p class="muted">{s.stepsIntro}</p>
+      <p class="tiny">Kliknutím na jednotlivé kroky zobrazíte podrobnosti.</p>
+    </div>
+    <ol class="timeline">
+      {s.steps.map((st, i) => (
+        <li>
+          <details open={i === 0}>
+            <summary><span class="label">{st.label}</span><span class="title">{st.title}</span></summary>
+            <p>{st.text}</p>
+          </details>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  {isPregnancy && <Ultrasound8k />}
+  {isPregnancy && <div style="height:clamp(64px,9vw,104px)"></div>}
+
+  {isPregnancy && (
+    <section class="wrap" style="padding-bottom:clamp(64px,9vw,104px)">
+      <div class="card card-sage split" style="padding:clamp(28px,4vw,56px);border-radius:40px" data-reveal>
+        <div class="stack" style="--gap:14px">
+          <span class="eyebrow">Kalkulačka</span>
+          <h2 class="h2 h2-sm">Kdy se miminko narodí?</h2>
+          <p>Zadejte první den poslední menstruace a spočítáme orientační termín porodu i aktuální týden těhotenství.</p>
+        </div>
+        <form class="info-card" data-due>
+          <div class="field">
+            <label for="lmp">První den poslední menstruace</label>
+            <input class="input" id="lmp" type="date" required />
+          </div>
+          <button class="btn btn-primary" type="submit">Spočítat termín</button>
+          <div data-due-out hidden aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  )}
+
+  <!-- PŘÍPRAVA + CENA -->
+  <section class="bg-plum">
+    <div class="wrap split" style="padding-block:clamp(64px,8vw,96px);gap:64px;align-items:start">
+      <div class="stack" data-reveal style="align-items:stretch">
+        <h2 class="h2 h2-sm">{s.slug === 'online-konzultace' ? 'Co si připravit' : 'Co si vzít s sebou'}</h2>
+        <ul class="plain-list">{s.prepare.map((p) => <li><span>{p}</span></li>)}</ul>
+      </div>
+      <div class="stack" data-reveal style="align-items:stretch">
+        <h2 class="h2 h2-sm">Cena a úhrada</h2>
+        <ul class="plain-list">{s.prices.map((p) => <li><span>{p.item}</span><span>{p.price}</span></li>)}</ul>
+        <p class="tiny" style="color:var(--color-plum-100)">{s.priceNote} <a href="/cenik" style="color:#fff">Celý ceník</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECENZE -->
+  {svcReviews.length > 0 && (
+    <section class="wrap" style="padding-block:clamp(64px,9vw,104px) clamp(40px,6vw,72px)">
+      <div class="between" style="margin-bottom:40px" data-reveal>
+        <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px)">Co říkají pacientky</h2>
+        <a class="link-arrow" href="/recenze">Všechny recenze</a>
+      </div>
+      <div class="grid-auto" style="--min:380px" data-stagger>
+        {svcReviews.map((r) => <ReviewCard review={r} tone="blush" />)}
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ -->
+  <section class="wrap-narrow" style="padding-block:32px clamp(64px,9vw,104px)">
+    <h2 class="h2 h2-sm" style="margin-bottom:32px" data-reveal>Časté otázky – {s.name.toLowerCase().replace('co₂', 'CO₂')}</h2>
+    <Faq items={s.faq} openFirst />
+  </section>
+
+  <!-- SOUVISEJÍCÍ -->
+  <section class="wrap" style="padding-bottom:clamp(64px,9vw,104px)">
+    <h2 class="serif" style="font-size:28px;color:var(--color-plum-900);margin-bottom:32px">Související služby</h2>
+    <div class="grid-auto" style="--min:300px" data-stagger>
+      {related.map((r) => (
+        <a class="card card-line stack" style="--gap:8px;padding:28px" href={`/sluzby/${r.slug}`}>
+          <span class="serif" style="font-size:22px;color:var(--color-plum-900)">{r.name}</span>
+          <span class="small muted">{r.short} →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <Cta title={s.cta} source={s.slug} />
+</Base>

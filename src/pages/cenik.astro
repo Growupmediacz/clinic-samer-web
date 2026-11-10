@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import Cta from '../components/Cta.astro';
+import PageHero from '../components/PageHero.astro';
+import { insurers } from '../data/site';
+import { priceList, covered } from '../data/faq';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Ceník', href: '/cenik' }];
+---
+<Base
+  title="Ceník a zdravotní pojišťovny | Gynekologie MUDr. Samer Asad, Praha 4"
+  description="Co hradí zdravotní pojišťovna a kolik stojí samoplátecké výkony: konzultace neplodnosti, 4D ultrazvuk, CO₂ laser, online konzultace. Přehled smluvních pojišťoven."
+  breadcrumbs={crumbs}
+>
+  <PageHero eyebrow="Ceník a pojišťovny" title="O ceně víte vždy předem" crumbs={crumbs} narrow
+    lead="Běžná gynekologická péče je u smluvních pojišťoven hrazena z veřejného zdravotního pojištění. U samopláteckých vyšetření a zákroků vás vždy předem informujeme o ceně." />
+
+  <section class="wrap-narrow section">
+    <div class="stack" style="align-items:stretch;--gap:56px">
+      <div class="stack" style="align-items:stretch" data-reveal>
+        <span class="eyebrow">Část 1</span>
+        <h2 class="h2">Hrazeno z pojištění</h2>
+        <ul class="check-list" style="margin-top:8px">{covered.map((c) => <li>{c}</li>)}</ul>
+        <h3 class="h3" style="margin-top:24px">Smluvní pojišťovny</h3>
+        <ul class="plain-list">
+          {insurers.map((i) => <li><span>{i.name}</span><span>{i.code || i.short}</span></li>)}
+        </ul>
+      </div>
+
+      <div class="stack" style="align-items:stretch" data-reveal>
+        <span class="eyebrow">Část 2</span>
+        <h2 class="h2">Samoplátecké výkony</h2>
+        <ul class="plain-list">
+          {priceList.map((p) => (
+            <li><span><strong style="font-weight:600;color:var(--color-plum-900)">{p.item}</strong><br /><span class="small muted">{p.note}</span></span><span>{p.price}</span></li>
+          ))}
+        </ul>
+        <p class="tiny">Ceny se mohou lišit podle náročnosti výkonu, vždy vás informujeme předem. Ceník není úplný – cenu výkonu, který zde nenajdete, vám rádi sdělíme telefonicky nebo při objednání.</p>
+      </div>
+
+      <div class="card card-blush stack" data-reveal>
+        <h3 class="h3">Samoplátkyně a cizinky</h3>
+        <p class="muted">Ošetříme i pacientky bez českého veřejného pojištění. Pracujeme s pojištěním cizinců PVZP a UNIQA; v ostatních případech péči hradíte přímo. V ordinaci se domluvíte česky, anglicky, francouzsky, italsky a arabsky.</p>
+        <div class="row" style="gap:4px 20px"><a class="link-arrow" href="/en" hreflang="en">English</a><a class="link-arrow" href="/de" hreflang="de">Deutsch</a><a class="link-arrow" href="/it" hreflang="it">Italiano</a><a class="link-arrow" href="/ar" hreflang="ar">العربية</a></div>
+      </div>
+    </div>
+  </section>
+
+  <Cta source="cenik" />
+</Base>

@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { site, bookingUrl, type Lang } from '../data/site';
+import { dict } from '../i18n';
+interface Props { compact?: boolean; lang?: Lang }
+const { compact = false, lang = 'cs' } = Astro.props;
+const t = lang === 'cs'
+  ? {
+      eyebrow: 'Novinka v ordinaci', title: '8K ultrazvuk: tvář miminka ještě před narozením',
+      text: 'K 3D a 4D ultrazvuku nově nabízíme také 8K zobrazení. Ze snímku pořízeného při vyšetření vznikne realistický obrázek tvářičky vašeho miminka, který si odnesete na památku.',
+      note: '8K zobrazení je ilustrativní vizualizace vytvořená počítačovým zpracováním ultrazvukového snímku. Neslouží k diagnostice a skutečná podoba miminka se může lišit. Výsledek závisí na poloze miminka a týdnu těhotenství.',
+      classic: 'Klasický 3D snímek', hd: '8K zobrazení', more: 'Více o 8K ultrazvuku',
+    }
+  : dict[lang].home.us8k;
+const moreHref = lang === 'cs' ? '/sluzby/tehotenska-poradna-ultrazvuk#ultrazvuk-8k' : bookingUrl(`${lang}-8k`);
+const mods = import.meta.glob<{ default: ImageMetadata }>('../assets/images/ultrazvuk/*.webp', { eager: true });
+const pick = (p: string) => Object.keys(mods).filter((k) => k.includes(p)).sort().map((k) => mods[k].default);
+const classic = pick('/3d-');
+const hd = pick('/8k-');
+---
+<section class="bg-plum" id="ultrazvuk-8k">
+  <div class="wrap section split" style="gap:clamp(32px,6vw,72px)">
+    <div class="stack" style="--gap:22px" data-reveal>
+      <span class="eyebrow">{t.eyebrow}</span>
+      <h2 class="h2">{t.title}</h2>
+      <p class="lead">{t.text}</p>
+      {!compact && (
+        <ul class="check-list">
+          <li>Snímek vzniká při ultrazvukovém vyšetření přímo v ordinaci</li>
+          <li>Památeční obrázek tvářičky vašeho miminka</li>
+          <li>U vyšetření může být i partner</li>
+        </ul>
+      )}
+      <div class="row">
+        {compact
+          ? <a class="btn btn-light" href={moreHref} {...(lang === 'cs' ? {} : { target: '_blank', rel: 'noopener', 'data-track': 'click_book' })}>{t.more}</a>
+          : <a class="btn btn-light" data-magnetic href="/objednat?duvod=tehotenska-poradna-ultrazvuk" data-track="click_book">Objednat se na ultrazvuk</a>}
+        <a class="link-arrow" href={site.phoneHref} data-track="click_call">{site.phone}</a>
+      </div>
+      <p class="tiny" style="color:var(--color-plum-100)">{t.note}</p>
+    </div>
+    <div class="us-compare" data-reveal>
+      <figure>
+        <div class="photo photo-round"><Image src={classic[0]} alt={t.classic} widths={[320, 520, 832]} sizes="(max-width: 900px) 44vw, 260px" /></div>
+        <figcaption>{t.classic}</figcaption>
+      </figure>
+      <figure>
+        <div class="photo photo-round"><Image src={hd[0]} alt={t.hd} widths={[320, 520, 832]} sizes="(max-width: 900px) 44vw, 260px" /></div>
+        <figcaption><strong>{t.hd}</strong></figcaption>
+      </figure>
+    </div>
+  </div>
+  {!compact && (
+    <div class="wrap" style="padding-bottom:clamp(64px,8vw,96px)">
+      <div class="us-strip" data-stagger>
+        {hd.slice(1).map((s, i) => <div class="photo photo-round"><Image src={s} alt={`Ukázka 8K zobrazení miminka ${i + 2}`} widths={[240, 400, 640]} sizes="(max-width: 700px) 44vw, 220px" /></div>)}
+      </div>
+      <p class="tiny" style="color:var(--color-plum-100);margin-top:14px">Ukázky 8K zobrazení.</p>
+    </div>
+  )}
+</section>

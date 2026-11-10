@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Cookies', href: '/cookies' }];
+---
+<Base title="Zásady používání cookies | MUDr. Samer Asad" description="Informace o používání souborů cookies na webu gynekologické ambulance MUDr. Samera Asada." breadcrumbs={crumbs} pageKey="cookies">
+  <PageHero title="Zásady používání cookies" crumbs={crumbs} narrow
+    lead="Cookies jsou malé textové soubory, které weby ukládají do vašeho zařízení. Nezbytné cookies fungují vždy, ostatní jen s vaším souhlasem." />
+  <section class="wrap-narrow section">
+    <div class="prose">
+      <h2 style="margin-top:0">Prohlášení o souborech cookie</h2>
+      <p>Zákon uvádí, že můžeme ukládat cookies na vašem zařízení, pokud jsou nezbytně nutné pro provoz této stránky. Pro všechny ostatní typy cookies potřebujeme vaše povolení. Svůj souhlas můžete kdykoli změnit nebo odvolat.</p>
+      <p><button class="btn btn-primary btn-sm" type="button" data-cookie-open>Změnit nastavení cookies</button></p>
+      <p>Váš souhlas se týká domény <strong>clinic-samer.cz</strong> a platí 12 měsíců, poté vás o něj požádáme znovu. Více o zpracování údajů najdete v <a href="/ochrana-osobnich-udaju">Zásadách ochrany osobních údajů</a>.</p>
+
+      <h2>Nutné</h2>
+      <p>Nutné cookies pomáhají, aby byla webová stránka použitelná. Bez nich web nemůže správně fungovat.</p>
+      <table>
+        <thead><tr><th>Jméno</th><th>Poskytovatel</th><th>Účel</th><th>Doba uložení</th><th>Typ</th></tr></thead>
+        <tbody>
+          <tr><td>clinic-samer-consent</td><td>clinic-samer.cz</td><td>Ukládá stav souhlasu se soubory cookie pro tuto doménu včetně data souhlasu.</td><td>1 rok</td><td>Místní úložiště HTML</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Statistické</h2>
+      <p>Statistické cookies pomáhají porozumět tomu, jak návštěvníci web používají. Načítají se pouze s vaším souhlasem.</p>
+      <table>
+        <thead><tr><th>Jméno</th><th>Poskytovatel</th><th>Účel</th><th>Doba uložení</th><th>Typ</th></tr></thead>
+        <tbody>
+          <tr><td>_ga</td><td>Google</td><td>Registruje unikátní ID, které se používá k vytváření statistik o tom, jak návštěvník web používá.</td><td>2 roky</td><td>Soubor cookie HTTP</td></tr>
+          <tr><td>_ga_#</td><td>Google</td><td>Používá Google Analytics ke sběru dat o počtu návštěv a o datech první a poslední návštěvy.</td><td>2 roky</td><td>Soubor cookie HTTP</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Obsah třetích stran</h2>
+      <p>Mapa Google se na webu načte až poté, co kliknete na tlačítko „Zobrazit mapu“. Teprve tehdy může společnost Google uložit vlastní cookies. Odkazy na objednání vedou na portál ZnámýLékař, který se řídí vlastními zásadami.</p>
+
+      <h2>Marketingové</h2>
+      <p>Marketingové cookies web v tuto chvíli nepoužívá. Pokud je v budoucnu nasadíme, načtou se pouze s vaším souhlasem.</p>
+      <p class="tiny">Prohlášení o cookies bylo naposledy aktualizováno 10. 11. 2026.</p>
+    </div>
+  </section>
+</Base>

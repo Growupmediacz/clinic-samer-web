@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContactCard from '../../components/ContactCard.astro';
+import { site, insurers, bookingUrl, pagePath, INTL, type IntlLang } from '../../data/site';
+import { dict } from '../../i18n';
+import { clinicSchema } from '../../data/schema';
+
+export const getStaticPaths = () => INTL.map((lang) => ({ params: { lang } }));
+const lang = Astro.params.lang as IntlLang;
+const d = dict[lang], t = d.contact;
+const crumbs = [{ name: d.ui.home, href: pagePath('home', lang) }, { name: d.ui.contact, href: pagePath('contact', lang) }];
+---
+<Base lang={lang} title={t.title} description={t.description} pageKey="contact" schema={clinicSchema} breadcrumbs={crumbs}>
+  <PageHero eyebrow={d.ui.contact} title={t.h1} crumbs={crumbs} tone="sage" lead={t.lead}>
+    <div class="row">
+      <a class="btn btn-primary" data-magnetic href={bookingUrl(`${lang}-contact`)} target="_blank" rel="noopener" data-track="click_book">{t.bookOnline}</a>
+      <a class="btn btn-light" href={site.phoneHref} data-track="click_call">{site.phone}</a>
+    </div>
+    <ContactCard slot="aside" lang={lang} mapHeight={260} />
+  </PageHero>
+
+  <section class="wrap section">
+    <div class="grid-auto" style="--min:280px" data-stagger>
+      <div class="card card-blush stack" style="--gap:8px"><h2 class="h3">{t.bookingTitle}</h2><p class="small muted">{t.bookingText} <a href={`mailto:${site.email}`}>{site.email}</a>.</p></div>
+      <div class="card card-blush stack" style="--gap:8px"><h2 class="h3">{t.gettingTitle}</h2><p class="small muted">{t.gettingText} <a href={site.mapsUrl} target="_blank" rel="noopener" data-track="click_map">{t.openMaps}</a></p></div>
+      <div class="card card-blush stack" style="--gap:8px"><h2 class="h3">{d.ui.insuranceTitle}</h2><p class="small muted"><span dir="ltr">{insurers.map((i) => i.short).join(' · ')}</span>. {t.insuranceText}</p></div>
+      <div class="card card-blush stack" style="--gap:8px"><h2 class="h3">{t.languagesTitle}</h2><p class="small muted">{d.languages.join(' · ')}</p></div>
+    </div>
+  </section>
+</Base>

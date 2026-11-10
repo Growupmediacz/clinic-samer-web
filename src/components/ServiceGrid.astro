@@ -1,0 +1,19 @@
+---
+import { services } from '../data/services';
+import { pagePath, type Lang } from '../data/site';
+import { dict } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'cs' } = Astro.props;
+---
+<div class="svc-grid" data-stagger>
+  {services.map((s) => {
+    const x = lang === 'cs' ? s : dict[lang].items[s.slug];
+    return (
+      <a class="svc" href={lang === 'cs' ? `/sluzby/${s.slug}` : `${pagePath('services', lang)}#${s.slug}`}>
+        <span class="no" aria-hidden="true">{s.no}</span>
+        <span class="n">{x.name}</span>
+        <span class="d">{x.short}</span>
+      </a>
+    );
+  })}
+</div>
