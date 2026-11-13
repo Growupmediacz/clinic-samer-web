@@ -5,7 +5,7 @@ Vícestránkový web MUDr. Samera Asada (Praha 4 – Braník). Nahrazuje původn
 
 ## Stack
 - Astro 5 (statický build), Tailwind CSS 4 (tokeny v `src/styles/tokens.css`), TypeScript
-- Fonty self-hosted přes Fontsource: Newsreader (nadpisy), Plus Jakarta Sans (text), Noto Naskh/Sans Arabic (arabština)
+- Fonty self-hosted přes Fontsource: Newsreader (nadpisy, jen osa wght – opsz je 2× větší), Plus Jakarta Sans (text), Noto Naskh/Sans Arabic (jen v `html[lang=ar]`, jinde by se stahovaly zbytečně)
 - Žádný UI framework – interaktivita je vanilla TS v `src/scripts/site.ts`
 - View Transitions (`<ClientRouter />`) → skripty se inicializují na `astro:page-load`
 

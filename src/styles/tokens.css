@@ -29,8 +29,9 @@
   --color-line: #e3d9d4;
   --color-line-strong: #d9cfcb;
 
-  --font-serif: 'Newsreader Variable', 'Newsreader', 'Noto Naskh Arabic Variable', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', 'Noto Sans Arabic Variable', system-ui, sans-serif;
+  /* Arabská písma jsou jen v arabské verzi (global.css, html[lang='ar']) – jinde by se zbytečně stahovala kvůli symbolům */
+  --font-serif: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
 
   --radius-card: 28px;
 }

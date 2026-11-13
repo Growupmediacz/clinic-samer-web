@@ -47,7 +47,7 @@ function initCookies() {
   const save = (c: Omit<Consent, 'ts'>) => {
     const full = { ...c, ts: Date.now() };
     try { localStorage.setItem(CONSENT_KEY, JSON.stringify(full)); } catch { /* soukromý režim */ }
-    applyConsent(full); box.hidden = true;
+    applyConsent(full); box.hidden = true; document.documentElement.classList.remove('consent-pending');
   };
   const a = $<HTMLInputElement>('[name=analytics]', box)!, m = $<HTMLInputElement>('[name=marketing]', box)!;
   if (stored) { a.checked = stored.analytics; m.checked = stored.marketing; applyConsent(stored); } else box.hidden = false;
