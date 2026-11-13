@@ -14,6 +14,11 @@ RewriteRule ^cz/?$ / [L,R=301]
 RewriteRule ^de/datenschutz/?$ /en/privacy [L,R=301]
 RewriteRule ^(it|ar)/privacy/?$ /en/privacy [L,R=301]
 RewriteRule ^(de|it|ar)/cookies/?$ /en/cookies [L,R=301]
+# Staré URL s /home/ (stále v indexu Googlu)
+RewriteRule ^home/?$ / [L,R=301]
+RewriteRule ^home/cookies/?$ /cookies [L,R=301]
+RewriteRule ^(en|de|it|ar)/home/?$ /$1 [L,R=301]
+RewriteRule ^(en|de|it|ar)/home/cookies/?$ /en/cookies [L,R=301]
 
 # Kanonické URL jsou bez koncového lomítka: /sluzby/ → /sluzby
 RewriteCond %{REQUEST_FILENAME} !-f

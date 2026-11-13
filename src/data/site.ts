@@ -36,15 +36,18 @@ export const site = {
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Branick%C3%A1+479%2F21%2C+147+00+Praha+4',
   mapsEmbed: 'https://www.google.com/maps?q=Branick%C3%A1+479%2F21%2C+147+00+Praha+4&z=16&output=embed',
   zlProfile: ZL_PROFILE,
+  /** Profil firmy na Googlu (Google vede jméno jako „MUDr. Samer Assaad“). */
+  googleProfile: 'https://www.google.com/search?kgmid=/g/11w9j015n9',
   languages: { cs: ['česky', 'anglicky', 'francouzsky', 'italsky', 'arabsky'] },
   /**
-   * Ordinační hodiny – ČEKÁ NA KLIENTA. Po doplnění se automaticky zobrazí na webu
+   * Ordinační hodiny – záměrně null: hodiny se často mění a aktuální jsou vždy na ZnámýLékař,
+   * web proto odkazuje na online kalendář. Po případném doplnění se automaticky zobrazí na webu
    * včetně stavu „Právě otevřeno“. Formát: po–ne, ['08:00', '16:00'] nebo null = zavřeno.
    * Příklad: { mo: ['08:00','16:00'], tu: ['08:00','18:00'], we: null, ... }
    */
   hours: null as null | Record<'mo' | 'tu' | 'we' | 'th' | 'fr' | 'sa' | 'su', DayHours>,
-  /** GA4 měřicí ID převzaté ze starého webu. Načítá se až po souhlasu s analytickými cookies. */
-  gaId: 'G-ZT25YXG7G8',
+  /** GA4 měřicí ID. Načítá se až po souhlasu s analytickými cookies. */
+  gaId: 'G-6EEV74WT48',
   stats: { years: 20, reviews: 700, rating: 4.9, awards: 4 },
 };
 

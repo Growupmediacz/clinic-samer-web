@@ -41,7 +41,7 @@ export const clinicSchema = {
       isAcceptingNewPatients: true,
       paymentAccepted: insurers.map((i) => i.name).join(', '),
       openingHoursSpecification: openingHours(),
-      sameAs: [site.zlProfile],
+      sameAs: [site.zlProfile, site.googleProfile],
     },
     physicianSchema,
   ],
