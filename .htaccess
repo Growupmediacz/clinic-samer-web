@@ -1,0 +1,49 @@
+# Apache / LiteSpeed (Hostinger): HTTPS, bez www, URL bez koncového lomítka, 301 starých URL, cache
+Options -Indexes
+DirectorySlash Off
+RewriteEngine On
+
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# Staré jazykové mutace z původního jednostránkového webu
+RewriteRule ^cz/?$ / [L,R=301]
+# Právní stránky jsou jen česky a anglicky
+RewriteRule ^de/datenschutz/?$ /en/privacy [L,R=301]
+RewriteRule ^(it|ar)/privacy/?$ /en/privacy [L,R=301]
+RewriteRule ^(de|it|ar)/cookies/?$ /en/cookies [L,R=301]
+# Staré URL s /home/ (stále v indexu Googlu)
+RewriteRule ^home/?$ / [L,R=301]
+RewriteRule ^home/cookies/?$ /cookies [L,R=301]
+RewriteRule ^(en|de|it|ar)/home/?$ /$1 [L,R=301]
+RewriteRule ^(en|de|it|ar)/home/cookies/?$ /en/cookies [L,R=301]
+
+# Kanonické URL jsou bez koncového lomítka: /sluzby/ → /sluzby
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+# /sluzby → sluzby/index.html (bez přesměrování)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+)$ $1/index.html [L]
+
+ErrorDocument 404 /404.html
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  # Prohlížeč bude rok chodit jen přes HTTPS (bez includeSubDomains – subdomény mohou být jinde)
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+  # CSP: vlastní soubory + GA4 (po souhlasu) + mapa Google (iframe po kliknutí). Inline skript v <head> je stub gtag/consent.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://www.google.com https://www.google.cz; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+  # Soubory s hashem v názvu mají vlastní pravidlo v _astro/.htaccess
+  <FilesMatch "\.(webp|avif|jpg|png|svg|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
