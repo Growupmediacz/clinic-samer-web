@@ -39,6 +39,8 @@ export default defineConfig({
   site: 'https://clinic-samer.cz',
   base: BASE || undefined,
   trailingSlash: 'ignore',
+  // Astro 7 změnilo výchozí hodnotu na 'jsx' (zahazuje mezery mezi inline prvky) – držíme původní chování.
+  compressHTML: true,
   integrations: [
     sitemap({
       i18n: { defaultLocale: 'cs', locales: { cs: 'cs-CZ', en: 'en', de: 'de', it: 'it', ar: 'ar' } },
@@ -56,6 +58,10 @@ export default defineConfig({
   vite: {
     plugins: [/** @type {any} */ (tailwindcss())],
     define: { __PREVIEW__: JSON.stringify(PREVIEW) },
+    // Stejná podpora prohlížečů jako dřív (výchozí cíl Vite 6). Vite 8 cílí až na Safari 16.4 a v CSS by
+    // přepsal media queries na zápis (width <= 767px) a vynechal -webkit- prefixy → starší iPhony by ztratily layout.
+    // CSS minifikuje esbuild jako ve Vite 6; Lightning CSS (výchozí ve Vite 8) by CSS zbytečně přepisoval.
+    build: { target: ['edge88', 'firefox78', 'chrome87', 'safari14'], cssMinify: 'esbuild' },
   },
   // Staré jazykové URL z původního webu (statický fallback; na Apache je řeší i public/.htaccess jako 301)
   redirects: {
