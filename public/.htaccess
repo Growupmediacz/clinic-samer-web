@@ -34,6 +34,11 @@ ErrorDocument 404 /404.html
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
+  # Prohlížeč bude rok chodit jen přes HTTPS (bez includeSubDomains – subdomény mohou být jinde)
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+  # CSP: vlastní soubory + GA4 (po souhlasu) + mapa Google (iframe po kliknutí). Inline skript v <head> je stub gtag/consent.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://stats.g.doubleclick.net; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com https://stats.g.doubleclick.net https://www.google.com https://www.google.cz; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://www.google.com https://maps.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
   # Soubory s hashem v názvu mají vlastní pravidlo v _astro/.htaccess
   <FilesMatch "\.(webp|avif|jpg|png|svg|ico)$">
     Header set Cache-Control "public, max-age=604800"
