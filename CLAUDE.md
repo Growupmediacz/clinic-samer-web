@@ -46,4 +46,6 @@ Starší web klienta byl v Lovable; `deploy/` (Coolify/VPS) se pro tohoto klient
 - Všechna CTA „Objednat se“ vedou na `/objednat` (průvodce) nebo přes `bookingUrl()` na ZnámýLékař; mají `data-track="click_book"`.
 
 ## Měření
-GA4 se načítá až po souhlasu (Consent Mode v2). Události: `click_book`, `click_call`, `click_map`. Kontaktní formulář na webu záměrně není (klient ho nechtěl, dokud nebude fungovat odesílání).
+GA4 se načítá až po souhlasu (Consent Mode v2). Události (jeden delegovaný posluchač v `initTracking()` v `src/scripts/site.ts`):
+`click_book` (tlačítka „Objednat se“, parametr `destination`: `pruvodce` | `znamylekar`), `zl_redirect` (odchod do kalendáře
+ZnámýLékař, parametr `booking_source` = `utm_content`), `click_call` (každý `tel:`), `click_email` (každý `mailto:`), `click_map`. Kontaktní formulář na webu záměrně není (klient ho nechtěl, dokud nebude fungovat odesílání).

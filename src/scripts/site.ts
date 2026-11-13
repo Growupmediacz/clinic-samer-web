@@ -63,10 +63,31 @@ function initCookies() {
 }
 
 /* ---------- Měření kliků ---------- */
+// Jeden delegovaný posluchač pro celý web: pozná odkaz podle href, takže se nevynechá žádný
+// telefon ani e-mail a s View Transitions se neregistruje vícekrát. Odkazy fungují beze změny
+// (ZnámýLékař se otevírá v novém okně, GA4 posílá události přes sendBeacon).
+//   click_book  – klik na „Objednat se“ (data-track="click_book"); destination: pruvodce | znamylekar
+//   zl_redirect – odchod do online kalendáře ZnámýLékař (odkazy z bookingUrl(), utm_campaign=objednani)
+//   click_call  – klik na tel: odkaz;  click_email – klik na mailto: odkaz
+//   ostatní data-track (click_map, click_zl_reviews…) se posílají pod svým názvem
+let trackingReady = false;
 function initTracking() {
-  $$('[data-track]').forEach((el) => el.addEventListener('click', () => {
-    window.gtag('event', el.dataset.track!, { link_url: (el as HTMLAnchorElement).href || '', page_path: location.pathname });
-  }));
+  if (trackingReady) return;
+  trackingReady = true;
+  document.addEventListener('click', (e) => {
+    const el = (e.target as Element | null)?.closest<HTMLElement>('a[href], [data-track]');
+    if (!el) return;
+    const href = el instanceof HTMLAnchorElement ? el.href : '';
+    const send = (name: string, params: Record<string, string> = {}) =>
+      window.gtag?.('event', name, { link_url: href, page_path: location.pathname, ...params });
+    const zl = /^https:\/\/(www\.)?znamylekar\.cz\//.test(href) && href.includes('utm_campaign=objednani');
+    const track = el.dataset.track;
+    if (href.startsWith('tel:')) send('click_call');
+    else if (href.startsWith('mailto:')) send('click_email');
+    else if (track === 'click_book') send('click_book', { destination: zl ? 'znamylekar' : 'pruvodce' });
+    else if (track) send(track);
+    if (zl) send('zl_redirect', { booking_source: new URL(href).searchParams.get('utm_content') ?? '' });
+  });
 }
 
 /* ---------- Navigace ---------- */
