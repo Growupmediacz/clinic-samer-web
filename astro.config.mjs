@@ -43,6 +43,12 @@ export default defineConfig({
     sitemap({
       i18n: { defaultLocale: 'cs', locales: { cs: 'cs-CZ', en: 'en', de: 'de', it: 'it', ar: 'ar' } },
       filter: (page) => !/\/cz\/?$/.test(page) && !/\/(de|it|ar)\/(datenschutz|privacy|cookies)\/?$/.test(page),
+      // URL bez koncového lomítka – stejně jako canonical a hreflang (server lomítko odstraňuje 301)
+      serialize: (item) => {
+        /** @param {string} u */
+        const strip = (u) => u.replace(/(?<=[^/])\/$/, '').replace(/^(https:\/\/[^/]+)$/, '$1/');
+        return { ...item, url: strip(item.url), links: item.links?.map((l) => ({ ...l, url: strip(l.url) })) };
+      },
     }),
     ...(BASE ? [rebase(BASE)] : []),
   ],

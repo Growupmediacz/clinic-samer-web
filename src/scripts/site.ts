@@ -266,23 +266,10 @@ function initDueDate() {
   };
 }
 
-/* ---------- Kontaktní formulář (otevře e-mail – bez odesílání dat třetím stranám) ---------- */
-function initContactForm() {
-  const f = $<HTMLFormElement>('[data-contact]'); if (!f) return;
-  f.onsubmit = (e) => {
-    e.preventDefault(); if (!f.reportValidity()) return;
-    const d = new FormData(f);
-    const body = `${d.get('message')}\n\n—\n${d.get('name')}\nTelefon: ${d.get('phone') || '–'}\nE-mail: ${d.get('email') || '–'}`;
-    window.gtag('event', 'form_submit', { form: 'kontakt', reason: d.get('reason') });
-    location.href = `mailto:${f.dataset.contact}?subject=${encodeURIComponent(`Dotaz z webu – ${d.get('reason')}`)}&body=${encodeURIComponent(body)}`;
-    $('[data-contact-done]', f)?.removeAttribute('hidden');
-  };
-}
-
 function init() {
   document.documentElement.classList.add('js');
   initCookies(); initTracking(); initNav(); initMotion(); initFilters(); initFaqSearch();
-  initMaps(); initHours(); initLightbox(); initWizard(); initDueDate(); initContactForm();
+  initMaps(); initHours(); initLightbox(); initWizard(); initDueDate();
 }
 document.addEventListener('astro:page-load', init);
 export {};

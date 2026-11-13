@@ -5,11 +5,10 @@ import ContactCard from '../components/ContactCard.astro';
 import { site, insurers } from '../data/site';
 import { clinicSchema } from '../data/schema';
 const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Kontakt', href: '/kontakt' }];
-const reasons = ['Preventivní prohlídka', 'Těhotenská poradna', 'Plánování těhotenství / neplodnost', 'Gynekologické potíže', 'Antikoncepce / tělísko', 'Hormonální potíže', 'CO₂ laser', 'Jiný dotaz'];
 ---
 <Base
   title="Kontakt – gynekolog Praha 4 Braník | MUDr. Samer Asad"
-  description="Gynekologická ambulance MUDr. Samera Asada: Branická 479/21, Praha 4 – Braník. Telefon +420 734 421 860, e-mail, mapa, doprava a kontaktní formulář."
+  description="Gynekologická ambulance MUDr. Samera Asada: Branická 479/21, Praha 4 – Braník. Telefon +420 734 421 860, e-mail, mapa a doprava."
   pageKey="contact" schema={clinicSchema} breadcrumbs={crumbs}
 >
   <PageHero eyebrow="Kontakt" title="Kde nás najdete" crumbs={crumbs} tone="sage"
@@ -39,33 +38,6 @@ const reasons = ['Preventivní prohlídka', 'Těhotenská poradna', 'Plánován�
         <h2 class="h3">Pojišťovny</h2>
         <p class="small muted">{insurers.map((i) => i.short).join(' · ')}. <a href="/cenik">Ceník a úhrady</a></p>
       </div>
-    </div>
-  </section>
-
-  <section class="bg-blush" id="formular">
-    <div class="wrap section split" style="align-items:start">
-      <div class="stack" data-reveal>
-        <span class="eyebrow">Napište nám</span>
-        <h2 class="h2">Máte dotaz?</h2>
-        <p class="muted">Vyplňte formulář a otevře se vám e-mail s připravenou zprávou. Odpovíme co nejdříve. Na konkrétní termín se nejrychleji objednáte <a href="/objednat">online</a> nebo telefonicky.</p>
-        <p class="tiny"><strong>Prosíme, neposílejte e-mailem citlivé zdravotní údaje</strong> ani výsledky vyšetření. Vše podrobně probereme osobně v ordinaci.</p>
-        <p class="small muted">{site.company}<br />{site.street}, {site.zip} {site.city}</p>
-      </div>
-      <form class="info-card" data-contact={site.email} data-reveal novalidate={false}>
-        <div class="field"><label for="f-name">Jméno a příjmení *</label><input class="input" id="f-name" name="name" autocomplete="name" required /></div>
-        <div class="grid-auto" style="--min:200px;gap:16px">
-          <div class="field"><label for="f-phone">Telefon</label><input class="input" id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
-          <div class="field"><label for="f-email">E-mail</label><input class="input" id="f-email" name="email" type="email" autocomplete="email" /></div>
-        </div>
-        <div class="field">
-          <label for="f-reason">Čeho se dotaz týká *</label>
-          <select class="input" id="f-reason" name="reason" required>{reasons.map((r) => <option>{r}</option>)}</select>
-        </div>
-        <div class="field"><label for="f-msg">Zpráva *</label><textarea class="input" id="f-msg" name="message" required placeholder="Stručně napište, s čím vám můžeme pomoci."></textarea></div>
-        <label class="checkbox"><input type="checkbox" required /> <span>Souhlasím se zpracováním osobních údajů za účelem vyřízení dotazu podle <a href="/ochrana-osobnich-udaju">zásad ochrany osobních údajů</a>. *</span></label>
-        <button class="btn btn-primary" type="submit">Připravit e-mail</button>
-        <p class="small" data-contact-done hidden role="status">Otevřeli jsme váš e-mailový program s připravenou zprávou. Pokud se nic nestalo, napište nám přímo na <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
-      </form>
     </div>
   </section>
 </Base>

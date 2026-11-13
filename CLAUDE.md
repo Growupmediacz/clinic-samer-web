@@ -30,6 +30,12 @@ Každý push do `main` nasadí náhled na https://growupmediacz.github.io/clinic
 Náhled se staví s `PREVIEW=1` (noindex, bez GA) a `BASE_PATH=/clinic-samer-web` – web běží v podsložce, proto
 odkazy v kódu piš od kořene (`/sluzby`) a integrace `rebase` v `astro.config.mjs` jim podsložku doplní.
 
+## Produkce (clinic-samer.cz)
+Web běží na webhostingu Hostinger (Apache/LiteSpeed). Stejný workflow po každém pushi do `main` postaví produkční verzi
+(indexovatelná, s GA po souhlasu) a uloží ji do větve `hostinger`; hPanel → Git ji přes webhook stáhne do `public_html`.
+Do větve `hostinger` necommituj ručně – při každém buildu se přepíše. URL jsou bez koncového lomítka (`public/.htaccess`).
+Starší web klienta byl v Lovable; `deploy/` (Coolify/VPS) se pro tohoto klienta nepoužívá.
+
 ## Pravidla obsahu
 - Jméno lékaře a sestry se v arabštině nepřepisuje (zůstává latinkou).
 - Tón: klidný, empatický, vykání, bez superlativů („nejlepší gynekolog“ jen v citacích recenzí).
@@ -40,4 +46,4 @@ odkazy v kódu piš od kořene (`/sluzby`) a integrace `rebase` v `astro.config.
 - Všechna CTA „Objednat se“ vedou na `/objednat` (průvodce) nebo přes `bookingUrl()` na ZnámýLékař; mají `data-track="click_book"`.
 
 ## Měření
-GA4 se načítá až po souhlasu (Consent Mode v2). Události: `click_book`, `click_call`, `click_map`, `form_submit`.
+GA4 se načítá až po souhlasu (Consent Mode v2). Události: `click_book`, `click_call`, `click_map`. Kontaktní formulář na webu záměrně není (klient ho nechtěl, dokud nebude fungovat odesílání).

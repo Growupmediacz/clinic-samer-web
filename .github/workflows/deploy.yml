@@ -53,3 +53,36 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Produkční build pro Hostinger (clinic-samer.cz): hotový web se uloží do větve `hostinger`,
+  # kterou si Hostinger (hPanel → Git, automatické nasazení přes webhook) stáhne do public_html.
+  hostinger:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Produkce musí jít do vyhledávačů a mít .htaccess
+        run: |
+          grep -q "Allow: /" dist/robots.txt
+          test -f dist/.htaccess
+          test -f dist/_astro/.htaccess
+      - name: Uložit build do větve hostinger
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd dist
+          git init -q -b hostinger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -qm "Produkční build ${GITHUB_SHA::7}"
+          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" hostinger
