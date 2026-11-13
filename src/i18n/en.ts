@@ -31,7 +31,7 @@ export const en = {
   languages: ['Czech', 'English', 'French', 'Italian', 'Arabic'],
   home: {
     title: 'English-speaking gynaecologist in Prague 4 | MUDr. Samer Asad',
-    description: 'English-speaking gynaecologist in Prague 4 – Braník. Pregnancy care and ultrasound, fertility care, preventive check-ups, IUDs and CO₂ laser. Accepting new patients.',
+    description: 'English-speaking gynaecologist in Prague 4 – Braník. Pregnancy care and ultrasound, fertility care, check-ups, IUDs and CO₂ laser. New patients welcome.',
     badge: 'Accepting new patients',
     h1: 'Your gynaecologist on the way', h1em: 'to parenthood',
     lead: 'From prevention and pregnancy planning through fertility care to regular check-ups during pregnancy. Personal, clear, and with time for your questions – in English.',
@@ -74,7 +74,7 @@ export const en = {
   },
   servicesPage: {
     title: 'Gynaecology services in Prague 4 | MUDr. Samer Asad',
-    description: 'Services of the gynaecology practice in Prague 4: pregnancy care and ultrasound, fertility care, general gynaecology, IUDs, hormonal disorders, CO₂ laser and online consultation.',
+    description: 'Gynaecology services in Prague 4: pregnancy care and ultrasound, fertility care, general gynaecology, IUDs, hormonal disorders, CO₂ laser and online consultation.',
     eyebrow: 'Care & services', h1: 'From prevention to parenthood',
     lead: 'Whether you are planning a baby, need help conceiving, are expecting, or are looking for long-term gynaecological care – together we will find the right next step.',
     bookThis: 'Book this service', detailsCz: 'Details in Czech',
@@ -92,7 +92,7 @@ export const en = {
   } as Record<string, { name: string; short: string; text: string; meta: string }>,
   about: {
     title: 'About – MUDr. Samer Asad, gynaecologist in Prague 4',
-    description: 'MUDr. Samer Asad – board-certified gynaecologist and reproductive medicine specialist with over 20 years of practice. Meet the doctor and nurse of the Prague 4 practice.',
+    description: 'MUDr. Samer Asad – board-certified gynaecologist and reproductive medicine specialist with over 20 years of practice. Meet the team in Prague 4.',
     role: 'Board-certified gynaecologist and specialist in reproductive medicine',
     lead: 'Every path to parenthood is different. That is why the doctor builds care on a personal relationship, thorough explanation and continuity between examinations.',
     photoAlt: 'MUDr. Samer Asad in his practice',

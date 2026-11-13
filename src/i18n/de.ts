@@ -32,7 +32,7 @@ export const de: Dict = {
   languages: ['Tschechisch', 'Englisch', 'Französisch', 'Italienisch', 'Arabisch'],
   home: {
     title: 'Frauenarzt in Prag 4 | MUDr. Samer Asad',
-    description: 'Gynäkologische Praxis in Prag 4 – Braník. Schwangerschaftsvorsorge und Ultraschall, Kinderwunschbehandlung, Vorsorge, Spiralen und CO₂-Laser. Wir nehmen neue Patientinnen auf.',
+    description: 'Gynäkologische Praxis in Prag 4 – Braník. Schwangerschaftsvorsorge, Ultraschall, Kinderwunsch, Vorsorge, Spiralen und CO₂-Laser. Neue Patientinnen willkommen.',
     badge: 'Wir nehmen neue Patientinnen auf',
     h1: 'Ihr Frauenarzt auf dem Weg', h1em: 'zum Wunschkind',
     lead: 'Von der Vorsorge und Familienplanung über die Kinderwunschbehandlung bis zur Schwangerschaftsvorsorge. Persönlich, verständlich und mit Zeit für Ihre Fragen.',
@@ -75,7 +75,7 @@ export const de: Dict = {
   },
   servicesPage: {
     title: 'Gynäkologische Leistungen in Prag 4 | MUDr. Samer Asad',
-    description: 'Leistungen der gynäkologischen Praxis in Prag 4: Schwangerschaftsvorsorge und Ultraschall, Kinderwunschbehandlung, allgemeine Gynäkologie, Spiralen, Hormonstörungen, CO₂-Laser und Online-Beratung.',
+    description: 'Frauenarztpraxis in Prag 4: Schwangerschaftsvorsorge und Ultraschall, Kinderwunsch, allgemeine Gynäkologie, Spiralen, Hormonstörungen, CO₂-Laser, Online-Beratung.',
     eyebrow: 'Betreuung & Leistungen', h1: 'Von der Vorsorge bis zum Wunschkind',
     lead: 'Ob Sie ein Baby planen, Hilfe beim Schwangerwerden brauchen, ein Kind erwarten oder eine langfristige gynäkologische Betreuung suchen – gemeinsam finden wir den richtigen nächsten Schritt.',
     bookThis: 'Diese Leistung buchen', detailsCz: 'Details auf Tschechisch',
@@ -93,7 +93,7 @@ export const de: Dict = {
   },
   about: {
     title: 'Über uns – MUDr. Samer Asad, Frauenarzt in Prag 4',
-    description: 'MUDr. Samer Asad – Facharzt für Gynäkologie und Spezialist für Reproduktionsmedizin mit über 20 Jahren Erfahrung. Lernen Sie Arzt und Krankenschwester der Praxis in Prag 4 kennen.',
+    description: 'MUDr. Samer Asad – Facharzt für Gynäkologie und Spezialist für Reproduktionsmedizin mit über 20 Jahren Erfahrung. Lernen Sie unser Team in Prag 4 kennen.',
     role: 'Facharzt für Gynäkologie und Spezialist für Reproduktionsmedizin',
     lead: 'Jeder Weg zum Elternsein ist anders. Deshalb baut der Arzt die Betreuung auf einem persönlichen Verhältnis, gründlicher Erklärung und aufeinander aufbauenden Untersuchungen auf.',
     photoAlt: 'MUDr. Samer Asad in seiner Praxis',

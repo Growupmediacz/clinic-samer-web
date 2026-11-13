@@ -130,7 +130,7 @@ export const services: Service[] = [
     reviewCats: ['diagnostika', 'gynekologie'],
     cta: 'Objednejte se na vstupní konzultaci',
     seo: {
-      title: 'Léčba neplodnosti Praha | MUDr. Samer Asad',
+      title: 'Léčba neplodnosti Praha 4 | MUDr. Samer Asad',
       description: 'Diagnostika a léčba neplodnosti v Praze 4. Vstupní konzultace pro ženy i páry, vyšetření AMH, ultrazvuk a srozumitelný plán dalšího postupu.',
     },
   },

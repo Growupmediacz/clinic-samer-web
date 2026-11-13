@@ -32,7 +32,7 @@ export const it: Dict = {
   languages: ['ceco', 'inglese', 'francese', 'italiano', 'arabo'],
   home: {
     title: 'Ginecologo a Praga 4 che parla italiano | MUDr. Samer Asad',
-    description: 'Ambulatorio ginecologico a Praga 4 – Braník. Assistenza in gravidanza ed ecografia, cura dell’infertilità, visite preventive, spirali e laser CO₂. Accettiamo nuove pazienti.',
+    description: 'Ambulatorio ginecologico a Praga 4 – Braník. Gravidanza ed ecografia, cura dell’infertilità, prevenzione, spirali e laser CO₂. Accettiamo nuove pazienti.',
     badge: 'Accettiamo nuove pazienti',
     h1: 'Il Suo ginecologo nel percorso', h1em: 'verso la maternità',
     lead: 'Dalla prevenzione e dalla pianificazione della gravidanza alla cura dell’infertilità, fino ai controlli regolari in gravidanza. Con attenzione personale, chiarezza e tempo per le Sue domande – anche in italiano.',
@@ -75,7 +75,7 @@ export const it: Dict = {
   },
   servicesPage: {
     title: 'Servizi ginecologici a Praga 4 | MUDr. Samer Asad',
-    description: 'Servizi dell’ambulatorio ginecologico a Praga 4: assistenza in gravidanza ed ecografia, cura dell’infertilità, ginecologia generale, spirali, disturbi ormonali, laser CO₂ e consulenza online.',
+    description: 'Servizi ginecologici a Praga 4: gravidanza ed ecografia, cura dell’infertilità, ginecologia generale, spirali, disturbi ormonali, laser CO₂ e consulenza online.',
     eyebrow: 'Assistenza e servizi', h1: 'Dalla prevenzione alla maternità',
     lead: 'Che stia pianificando un bambino, abbia bisogno di aiuto per concepire, sia in attesa o cerchi un’assistenza ginecologica continuativa, troveremo insieme il passo successivo più adatto.',
     bookThis: 'Prenota questo servizio', detailsCz: 'Dettagli in ceco',
@@ -93,7 +93,7 @@ export const it: Dict = {
   },
   about: {
     title: 'Chi siamo – MUDr. Samer Asad, ginecologo a Praga 4',
-    description: 'MUDr. Samer Asad – ginecologo specialista ed esperto in medicina della riproduzione con oltre 20 anni di esperienza. Conosca il medico e l’infermiera dell’ambulatorio di Praga 4.',
+    description: 'MUDr. Samer Asad – ginecologo specialista ed esperto in medicina della riproduzione con oltre 20 anni di esperienza. Conosca il nostro team a Praga 4.',
     role: 'Ginecologo specialista ed esperto in medicina della riproduzione',
     lead: 'Ogni percorso verso la genitorialità è diverso. Per questo il medico fonda l’assistenza su un rapporto personale, su spiegazioni accurate e sulla continuità tra un esame e l’altro.',
     photoAlt: 'MUDr. Samer Asad nel suo ambulatorio',
@@ -109,7 +109,7 @@ export const it: Dict = {
   },
   contact: {
     title: 'Contatti – ginecologo Praga 4 Braník | MUDr. Samer Asad',
-    description: 'Ambulatorio ginecologico del MUDr. Samer Asad: Branická 479/21, Praga 4 – Braník. Telefono +420 734 421 860, e-mail, mappa e prenotazione online. Si parla italiano.',
+    description: 'Ambulatorio ginecologico del MUDr. Samer Asad: Branická 479/21, Praga 4 – Braník. Telefono +420 734 421 860, mappa e prenotazione online. Si parla italiano.',
     h1: 'Dove trovarci',
     lead: 'L’ambulatorio si trova a Praga 4 – Braník. Prenoti online, ci chiami oppure ci scriva un’e-mail: parliamo italiano.',
     bookOnline: 'Prenota online',
