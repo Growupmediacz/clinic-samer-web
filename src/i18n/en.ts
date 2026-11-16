@@ -7,7 +7,7 @@ export const en = {
     book: 'Book a visit', call: 'Call', map: 'Map', menu: 'Menu', close: 'Close', openMenu: 'Open menu',
     allServices: 'All services', notSure: 'Not sure?',
     megaText: 'Tell us what brings you in and we will suggest the right type of visit.',
-    practice: 'Practice', insuranceTitle: 'Health insurance', switchLang: 'Language', quick: 'Quick actions',
+    practice: 'Practice', insuranceTitle: 'Health insurance', switchLang: 'Language', quick: 'Quick actions', toTop: 'Back to top',
     footerAbout: 'MUDr. Samer Asad – gynaecology practice. Personal care in Prague 4 focused on pregnancy planning, reproductive medicine and pregnancy care.',
     cookiesLabel: 'Cookies', cookieSettings: 'Cookie settings', privacy: 'Privacy policy',
     verified: 'verified review on ZnámýLékař', stars: 'Rated 5 out of 5',
@@ -41,6 +41,7 @@ export const en = {
     stats: ['years of practice', 'verified reviews', 'average patient rating', 'languages spoken'],
     careEyebrow: 'Care for your situation', careTitle: 'From prevention to parenthood',
     doctorEyebrow: 'A doctor who knows your story',
+    circleBadge: '20+ YEARS OF PRACTICE • GYNAECOLOGY • REPRODUCTIVE MEDICINE • ',
     doctorLead: 'Board-certified gynaecologist and specialist in reproductive medicine. Every path to parenthood is different, which is why his care is built on a personal relationship, thorough explanation and continuity between examinations.',
     doctorAlt: 'MUDr. Samer Asad performing an ultrasound scan',
     values: [

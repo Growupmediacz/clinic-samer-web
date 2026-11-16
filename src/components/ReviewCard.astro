@@ -6,11 +6,19 @@ interface Props { review: Review; tone?: 'cream' | 'blush'; small?: boolean; sho
 const { review: r, tone = 'cream', small = false, showDate = false, class: cls = '', lang = 'cs' } = Astro.props;
 const t = ui[lang];
 const date = new Date(r.date).toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' });
+const initial = r.name.trim().charAt(0).toUpperCase();
 ---
 <figure class:list={['review', small && 'review-sm', cls]} style={tone === 'blush' ? 'background:var(--color-blush-100)' : undefined} data-cat={r.cat} data-lang={r.lang}>
+  <span class="review-quote" aria-hidden="true">“</span>
   <div class="stack" style="--gap:14px">
     <span class="stars" role="img" aria-label={t.stars}>★★★★★</span>
     <blockquote lang={r.lang} dir="ltr">„{r.text}“</blockquote>
   </div>
-  <figcaption><strong dir="ltr">{r.name}</strong>{lang === 'cs' && <> · {r.type.toLowerCase()}</>}{showDate && <> · <time datetime={r.date}>{date}</time></>} · {t.verified}</figcaption>
+  <figcaption class="review-by">
+    <span class="review-avatar" aria-hidden="true">{initial}</span>
+    <span class="review-who">
+      <strong dir="ltr">{r.name}</strong>
+      <small>{lang === 'cs' && <>{r.type.toLowerCase()} · </>}{showDate && <><time datetime={r.date}>{date}</time> · </>}{t.verified}</small>
+    </span>
+  </figcaption>
 </figure>

@@ -1,0 +1,12 @@
+---
+/** Blok „Zavolejte nám“: zlatá ikonka telefonu v kroužku + číslo. */
+import { Phone } from '@lucide/astro';
+import IconCircle from './IconCircle.astro';
+import { site } from '../data/site';
+interface Props { label: string }
+const { label } = Astro.props;
+---
+<a class="call-block" href={site.phoneHref} data-track="click_call">
+  <IconCircle icon={Phone} tone="plum" size={52} />
+  <span><small>{label}</small><b dir="ltr">{site.phone}</b></span>
+</a>

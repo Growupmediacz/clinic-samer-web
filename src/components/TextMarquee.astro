@@ -1,0 +1,17 @@
+---
+/**
+ * Pás s běžícím textem – čistě dekorativní (aria-hidden), služby jsou na stránce jinde.
+ * Střídá plné a obrysové písmo. Max 1× na stránce, jinak přestane být klidný.
+ */
+interface Props { items: string[] }
+const { items } = Astro.props;
+---
+<div class="text-marquee" aria-hidden="true">
+  <div class="text-marquee-track">
+    {[0, 1].map(() => (
+      <span class="tm-group">
+        {items.map((t, i) => <><span class={i % 2 ? 'tm-outline' : 'tm-solid'}>{t}</span><span class="tm-star">✦</span></>)}
+      </span>
+    ))}
+  </div>
+</div>

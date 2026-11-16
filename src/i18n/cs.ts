@@ -8,7 +8,7 @@ export const csUi: UI = {
   book: 'Objednat se', call: 'Zavolat', map: 'Mapa', menu: 'Menu', close: 'Zavřít', openMenu: 'Otevřít menu',
   allServices: 'Všechny služby', notSure: 'Nevíte si rady?',
   megaText: 'Řekněte nám, s čím přicházíte, a doporučíme vhodný typ návštěvy.',
-  practice: 'Ordinace', insuranceTitle: 'Smluvní pojišťovny', switchLang: 'Jazyk', quick: 'Rychlé akce',
+  practice: 'Ordinace', insuranceTitle: 'Smluvní pojišťovny', switchLang: 'Jazyk', quick: 'Rychlé akce', toTop: 'Zpět nahoru',
   footerAbout: 'MUDr. Samer Asad – gynekologická ambulance. Osobní péče v Praze 4 se zaměřením na plánování těhotenství, reprodukční medicínu a péči o těhotné.',
   cookiesLabel: 'Cookies', cookieSettings: 'Nastavení cookies', privacy: 'Ochrana osobních údajů',
   verified: 'ověřená recenze ze ZnámýLékař', stars: 'Hodnocení 5 z 5',

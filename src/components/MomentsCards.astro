@@ -1,0 +1,18 @@
+---
+/**
+ * Řada vysokých karet s fotkami rodin: karta pod myší (nebo s fokusem) se rozšíří a ukáže
+ * skleněný štítek s popiskem. Na mobilu vodorovný swipe slider. Fotky jsou zveřejněné se souhlasem rodin.
+ */
+import { Image } from 'astro:assets';
+interface Item { src: ImageMetadata; alt: string; caption: string; pos?: string }
+interface Props { items: Item[]; href: string; note: string }
+const { items, href, note } = Astro.props;
+---
+<div class="xcards" data-stagger>
+  {items.map((it) => (
+    <a class="xcard" href={href}>
+      <Image src={it.src} alt={it.alt} widths={[360, 560, 760]} sizes="(max-width: 767px) 72vw, 520px" style={`object-position:${it.pos ?? '50% 30%'}`} />
+      <span class="xcard-label"><b>{it.caption}</b><small>{note}</small></span>
+    </a>
+  ))}
+</div>

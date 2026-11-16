@@ -8,7 +8,7 @@ export const de: Dict = {
     book: 'Termin buchen', call: 'Anrufen', map: 'Karte', menu: 'Menü', close: 'Schließen', openMenu: 'Menü öffnen',
     allServices: 'Alle Leistungen', notSure: 'Unsicher?',
     megaText: 'Sagen Sie uns, weshalb Sie kommen, und wir empfehlen Ihnen die passende Art des Termins.',
-    practice: 'Praxis', insuranceTitle: 'Krankenversicherung', switchLang: 'Sprache', quick: 'Schnellzugriff',
+    practice: 'Praxis', insuranceTitle: 'Krankenversicherung', switchLang: 'Sprache', quick: 'Schnellzugriff', toTop: 'Nach oben',
     footerAbout: 'MUDr. Samer Asad – gynäkologische Praxis. Persönliche Betreuung in Prag 4 mit Schwerpunkt auf Kinderwunsch, Reproduktionsmedizin und Schwangerschaftsvorsorge.',
     cookiesLabel: 'Cookies', cookieSettings: 'Cookie-Einstellungen', privacy: 'Datenschutz (EN)',
     verified: 'verifizierte Bewertung auf ZnámýLékař', stars: 'Bewertung 5 von 5',
@@ -42,6 +42,7 @@ export const de: Dict = {
     stats: ['Jahre Berufserfahrung', 'verifizierte Bewertungen', 'durchschnittliche Bewertung', 'gesprochene Sprachen'],
     careEyebrow: 'Betreuung für Ihre Situation', careTitle: 'Von der Vorsorge bis zum Wunschkind',
     doctorEyebrow: 'Ein Arzt, der Ihre Geschichte kennt',
+    circleBadge: '20+ JAHRE PRAXIS • GYNÄKOLOGIE • REPRODUKTIONSMEDIZIN • ',
     doctorLead: 'Facharzt für Gynäkologie und Spezialist für Reproduktionsmedizin. Jeder Weg zum Elternsein ist anders – deshalb beruht seine Betreuung auf einem persönlichen Verhältnis, gründlicher Erklärung und aufeinander aufbauenden Untersuchungen.',
     doctorAlt: 'MUDr. Samer Asad bei einer Ultraschalluntersuchung',
     values: [

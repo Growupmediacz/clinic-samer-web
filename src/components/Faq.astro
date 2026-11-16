@@ -1,4 +1,8 @@
 ---
+/**
+ * FAQ accordion bez JS (<details>/<summary>). Otevřená položka se zbarví švestkovou,
+ * „+“ se změní na „×“ ve zlatém kolečku; plynulé otevírání přes ::details-content (kde je podpora).
+ */
 import type { FaqItem } from '../data/faq';
 interface Props { items: FaqItem[]; openFirst?: boolean }
 const { items, openFirst = false } = Astro.props;
@@ -6,7 +10,7 @@ const { items, openFirst = false } = Astro.props;
 <div class="faq">
   {items.map((f, i) => (
     <details open={openFirst && i === 0}>
-      <summary>{f.q}</summary>
+      <summary><span class="faq-q">{f.q}</span><span class="faq-ico" aria-hidden="true"></span></summary>
       <p>{f.a}</p>
     </details>
   ))}

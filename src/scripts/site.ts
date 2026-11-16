@@ -170,13 +170,18 @@ function initMotion() {
     });
   }
 }
-/** Papírové 3D v hero: vrstvy se načtou po load, myší se ilustrace jemně naklání. */
+/**
+ * Papírové 3D v hero (jen zařízení s myší): vrstvy se stáhnou až při prvním pohybu myši nad hero,
+ * aby nekonkurovaly prvnímu vykreslení ani se nestaly LCP. Na dotykových zařízeních jen CSS plování obrázku.
+ */
 function initHero3D() {
   const el = $('[data-depth]');
   const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-  if (!el || reduced() || conn?.saveData) return;
+  if (!el || reduced() || conn?.saveData || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const box = $('.hero-layers', el)!;
+  let started = false;
   const start = () => {
+    if (started) return; started = true;
     const imgs = (JSON.parse(el.dataset.depth!) as string[]).map((srcset, i) => {
       const im = new Image();
       im.alt = ''; im.decoding = 'async'; im.className = i ? 'l-front' : 'l-body';
@@ -192,11 +197,8 @@ function initHero3D() {
       });
     }).catch(() => { /* bez vrstev zůstane statický obrázek */ });
   };
-  const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 2000 }) : setTimeout(start, 300));
-  if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
 
-  // Náklon za myší – jen zařízení s myší; plynulé dobíhání přes lerp
-  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  // Náklon za myší, plynulé dobíhání přes lerp
   const area = el.closest('section') || el;
   let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
   const tick = () => {
@@ -206,12 +208,33 @@ function initHero3D() {
   };
   const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
   area.addEventListener('pointermove', (e) => {
+    start();
     const r = el.getBoundingClientRect();
     tx = Math.max(-1, Math.min(1, ((e as PointerEvent).clientX - r.left - r.width / 2) / (r.width * 0.9)));
     ty = Math.max(-1, Math.min(1, ((e as PointerEvent).clientY - r.top - r.height / 2) / (r.height * 0.9)));
     kick();
   });
   area.addEventListener('pointerleave', () => { tx = 0; ty = 0; kick(); });
+}
+/** Tlačítko zpět nahoru s kruhovým ukazatelem průběhu scrollu. */
+function initToTop() {
+  const btn = $<HTMLButtonElement>('[data-to-top]'); if (!btn) return;
+  btn.hidden = false;
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    btn.style.setProperty('--p', (max > 0 ? Math.min(1, scrollY / max) : 0).toFixed(4));
+    btn.classList.toggle('is-shown', scrollY > innerHeight * 0.8);
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  document.addEventListener('astro:before-swap', () => { removeEventListener('scroll', onScroll); removeEventListener('resize', onScroll); }, { once: true });
+  btn.onclick = () => {
+    scrollTo({ top: 0, behavior: reduced() ? 'auto' : 'smooth' });
+  };
+  update();
 }
 function countUp(el: HTMLElement) {
   const target = parseFloat(el.dataset.count!), dec = Number(el.dataset.decimals || 0);
@@ -338,7 +361,7 @@ function initDueDate() {
 
 function init() {
   document.documentElement.classList.add('js');
-  initCookies(); initTracking(); initNav(); initMotion(); initHero3D(); initFilters(); initFaqSearch();
+  initCookies(); initTracking(); initNav(); initMotion(); initHero3D(); initToTop(); initFilters(); initFaqSearch();
   initMaps(); initHours(); initLightbox(); initWizard(); initDueDate();
 }
 document.addEventListener('astro:page-load', init);

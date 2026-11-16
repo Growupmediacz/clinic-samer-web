@@ -88,6 +88,11 @@ const ext = cs ? {} : { target: '_blank', rel: 'noopener' };
       <a class="btn btn-outline" href={site.mapsUrl} target="_blank" rel="noopener" data-track="click_map">{t.map}</a>
     </nav>
 
+    <button class="to-top" type="button" data-to-top aria-label={t.toTop} hidden>
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle class="tt-track" cx="24" cy="24" r="22" /><circle class="tt-bar" cx="24" cy="24" r="22" pathLength="100" /></svg>
+      <svg class="tt-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5M6 11l6-6 6 6" /></svg>
+    </button>
+
     <section class="cookie" data-cookie hidden role="dialog" aria-modal="false" aria-labelledby="cookie-title">
       <h2 id="cookie-title">{t.cookie.title}</h2>
       <p>{t.cookie.text} <a href={pagePath('cookies', lang)}>{t.cookie.more}</a></p>

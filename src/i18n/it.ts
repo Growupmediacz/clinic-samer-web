@@ -8,7 +8,7 @@ export const it: Dict = {
     book: 'Prenota una visita', call: 'Chiama', map: 'Mappa', menu: 'Menu', close: 'Chiudi', openMenu: 'Apri il menu',
     allServices: 'Tutti i servizi', notSure: 'Non sa cosa scegliere?',
     megaText: 'Ci dica il motivo della visita e Le consiglieremo il tipo di appuntamento più adatto.',
-    practice: 'Ambulatorio', insuranceTitle: 'Assicurazione sanitaria', switchLang: 'Lingua', quick: 'Azioni rapide',
+    practice: 'Ambulatorio', insuranceTitle: 'Assicurazione sanitaria', switchLang: 'Lingua', quick: 'Azioni rapide', toTop: 'Torna su',
     footerAbout: 'MUDr. Samer Asad – ambulatorio ginecologico. Assistenza personale a Praga 4, con particolare attenzione alla pianificazione della gravidanza, alla medicina della riproduzione e all’assistenza in gravidanza.',
     cookiesLabel: 'Cookie', cookieSettings: 'Impostazioni dei cookie', privacy: 'Privacy (EN)',
     verified: 'recensione verificata su ZnámýLékař', stars: 'Valutazione 5 su 5',
@@ -42,6 +42,7 @@ export const it: Dict = {
     stats: ['anni di esperienza', 'recensioni verificate', 'valutazione media delle pazienti', 'lingue parlate'],
     careEyebrow: 'Assistenza per la Sua situazione', careTitle: 'Dalla prevenzione alla maternità',
     doctorEyebrow: 'Un medico che conosce la Sua storia',
+    circleBadge: '20+ ANNI DI ESPERIENZA • GINECOLOGIA • MEDICINA RIPRODUTTIVA • ',
     doctorLead: 'Ginecologo specialista ed esperto in medicina della riproduzione. Ogni percorso verso la genitorialità è diverso: per questo la sua assistenza si fonda su un rapporto personale, su spiegazioni accurate e sulla continuità tra un esame e l’altro.',
     doctorAlt: 'MUDr. Samer Asad durante un’ecografia',
     values: [

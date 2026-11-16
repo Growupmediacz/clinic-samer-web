@@ -145,7 +145,7 @@ const schema = [
 
   <!-- FAQ -->
   <section class="wrap-narrow" style="padding-block:32px clamp(64px,9vw,104px)">
-    <h2 class="h2 h2-sm" style="margin-bottom:32px" data-reveal>Časté otázky – {s.name.toLowerCase().replace('co₂', 'CO₂')}</h2>
+    <div class="stack" style="--gap:12px;margin-bottom:32px" data-reveal><SectionHeading title={`Časté otázky – ${s.name.toLowerCase().replace('co₂', 'CO₂')}`} class="h2 h2-sm" /></div>
     <Faq items={s.faq} openFirst />
   </section>
 

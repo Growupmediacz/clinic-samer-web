@@ -1,0 +1,20 @@
+---
+/** Koláž v sekci o lékaři: velká fotka u ultrazvuku, menší fotka se sestrou a rotující kruhový text mezi nimi. */
+import { Image } from 'astro:assets';
+import CircleTextBadge from './CircleTextBadge.astro';
+import { img } from '../data/images';
+interface Props { alt: string; subAlt?: string; badge: string }
+const { alt, subAlt = '', badge } = Astro.props;
+---
+<div class="doc-collage" data-reveal>
+  <div class="photo photo-leaf-br doc-main">
+    <Image src={img.ultrasound} alt={alt} widths={[480, 720, 1080]} sizes="(max-width: 900px) 80vw, 460px" style="object-position:70% 55%" />
+  </div>
+  <figure class="doc-sub">
+    <div class="photo">
+      <Image src={img.nurse} alt={subAlt} widths={[260, 400]} sizes="(max-width: 900px) 42vw, 220px" style="object-position:50% 28%" />
+    </div>
+    <figcaption dir="ltr">Nataliia Asad, DiS.</figcaption>
+  </figure>
+  <CircleTextBadge class="doc-badge" text={badge} />
+</div>

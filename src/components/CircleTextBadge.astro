@@ -1,0 +1,25 @@
+---
+/**
+ * Rotující kruhový text (SVG textPath) s logem „S“ uprostřed. Čistě dekorativní (aria-hidden),
+ * informace z textu musí být na stránce i jinde. Rotace ~25 s, s reduced-motion stojí.
+ */
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
+interface Props {
+  text: string;
+  size?: number;
+  tone?: 'plum' | 'cream';
+  class?: string;
+}
+const { text, size = 132, tone = 'plum', class: cls } = Astro.props;
+const id = `ct-${Math.random().toString(36).slice(2, 8)}`;
+// Obvod kruhu r=39 ≈ 245 jednotek; textLength roztáhne text přesně na celý obvod
+const circumference = 2 * Math.PI * 39;
+---
+<span class:list={['circle-badge', `circle-badge-${tone}`, cls]} style={`--cb:${size}px`} aria-hidden="true">
+  <svg class="circle-badge-ring" viewBox="0 0 100 100" focusable="false" direction="ltr">
+    <defs><path id={id} d="M 50 50 m -39 0 a 39 39 0 1 1 78 0 a 39 39 0 1 1 -78 0" /></defs>
+    <text textLength={circumference.toFixed(1)} lengthAdjust="spacing"><textPath href={`#${id}`}>{text}</textPath></text>
+  </svg>
+  <span class="circle-badge-center"><Image src={img.logo} alt="" width={44} height={44} /></span>
+</span>

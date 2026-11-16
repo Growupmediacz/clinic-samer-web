@@ -1,0 +1,10 @@
+---
+/** Fotka rodiny mezi kartami recenzí (z galerie Příběhy, zveřejněno se souhlasem). */
+import { Image } from 'astro:assets';
+interface Props { src: ImageMetadata }
+const { src } = Astro.props;
+---
+<figure class="review-photo">
+  <Image src={src} alt="Rodina s miminkem v ordinaci MUDr. Samera Asada" widths={[320, 560]} sizes="300px" loading="lazy" style="object-position:50% 30%" />
+  <figcaption>Z galerie Příběhy</figcaption>
+</figure>
