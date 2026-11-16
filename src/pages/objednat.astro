@@ -1,4 +1,5 @@
 ---
+import SectionHeading from '../components/SectionHeading.astro';
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import { site, bookingUrl } from '../data/site';
@@ -21,7 +22,7 @@ const reasons = [
   description="Objednejte se ke gynekologovi v Praze 4 online nebo telefonicky. Vyberte důvod návštěvy a doporučíme typ termínu, délku i cenu. Přijímáme nové pacientky."
   breadcrumbs={crumbs}
 >
-  <PageHero eyebrow="Objednání ve dvou krocích" title="S čím přicházíte?" crumbs={crumbs} narrow
+  <PageHero eyebrow="Objednání ve dvou krocích" title="S čím přicházíte?" accent="přicházíte?" crumbs={crumbs} narrow
     lead="Vyberte důvod návštěvy. Doporučíme vhodný typ termínu a přesměrujeme vás do online kalendáře na ZnámýLékař – nebo nám jednoduše zavolejte." />
 
   <section class="wrap section" data-wizard>
@@ -35,8 +36,7 @@ const reasons = [
     {reasons.map((r) => (
       <div class="cta-block split wizard-result" data-result={r.id} tabindex="-1" style="margin-bottom:24px">
         <div class="stack">
-          <span class="eyebrow">{r.t}</span>
-          <h2 class="h2 h2-sm">{r.visit}</h2>
+          <SectionHeading eyebrow={r.t} title={r.visit} class="h2 h2-sm" />
           <p>{r.note}</p>
           <div class="row">
             {r.callFirst ? (

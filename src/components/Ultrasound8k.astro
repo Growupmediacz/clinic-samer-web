@@ -1,4 +1,5 @@
 ---
+import SectionHeading from './SectionHeading.astro';
 import { Image } from 'astro:assets';
 import { site, bookingUrl, type Lang } from '../data/site';
 import { dict } from '../i18n';
@@ -21,8 +22,7 @@ const hd = pick('/8k-');
 <section class="bg-plum" id="ultrazvuk-8k">
   <div class="wrap section split" style="gap:clamp(32px,6vw,72px)">
     <div class="stack" style="--gap:22px" data-reveal>
-      <span class="eyebrow">{t.eyebrow}</span>
-      <h2 class="h2">{t.title}</h2>
+      <SectionHeading eyebrow={t.eyebrow} title={t.title} />
       <p class="lead">{t.text}</p>
       {!compact && (
         <ul class="check-list">

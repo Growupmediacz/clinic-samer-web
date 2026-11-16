@@ -1,4 +1,5 @@
 ---
+import SectionHeading from '../../components/SectionHeading.astro';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
@@ -45,8 +46,7 @@ const schema = [
       </nav>
       <div class="page-hero split" style="gap:64px">
         <div class="stack" style="--gap:24px">
-          <span class="eyebrow rise">{s.eyebrow}</span>
-          <h1 class="h1 rise" style="--i:1">{s.name}</h1>
+          <SectionHeading as="h1" eyebrow={s.eyebrow} title={s.name} class="h1 rise" style="--i:1" eyebrowClass="rise" animate={false} />
           <p class="lead rise" style="--i:2">{s.lead}</p>
           <div class="row rise" style="--i:2">
             <a class="btn btn-primary" data-magnetic href={`/objednat?duvod=${s.slug}`} data-track="click_book">Objednat se</a>
@@ -77,8 +77,7 @@ const schema = [
   <!-- JAK PROBÍHÁ -->
   <section class="wrap split" style="padding-block:32px clamp(64px,9vw,104px);gap:64px;align-items:start">
     <div class="stack sticky-col" style="--gap:16px" data-reveal>
-      <span class="eyebrow">{s.stepsEyebrow}</span>
-      <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px)">{s.stepsTitle}</h2>
+      <SectionHeading eyebrow={s.stepsEyebrow} title={s.stepsTitle} style="font-size:clamp(30px,3.6vw,44px)" />
       <p class="muted">{s.stepsIntro}</p>
       <p class="tiny">Kliknutím na jednotlivé kroky zobrazíte podrobnosti.</p>
     </div>
@@ -101,8 +100,7 @@ const schema = [
     <section class="wrap" style="padding-bottom:clamp(64px,9vw,104px)">
       <div class="card card-sage split" style="padding:clamp(28px,4vw,56px);border-radius:40px" data-reveal>
         <div class="stack" style="--gap:14px">
-          <span class="eyebrow">Kalkulačka</span>
-          <h2 class="h2 h2-sm">Kdy se miminko narodí?</h2>
+          <SectionHeading eyebrow="Kalkulačka" title="Kdy se miminko narodí?" accent="narodí?" class="h2 h2-sm" />
           <p>Zadejte první den poslední menstruace a spočítáme orientační termín porodu i aktuální týden těhotenství.</p>
         </div>
         <form class="info-card" data-due>

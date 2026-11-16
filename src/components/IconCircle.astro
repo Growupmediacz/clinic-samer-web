@@ -1,0 +1,24 @@
+---
+/**
+ * Ikonka Lucide v kolečku – jednotný styl napříč webem.
+ * Použití: <IconCircle icon={Baby} />, tón gold (světle zlaté pozadí) | blush | plum (na tmavém pozadí).
+ */
+interface Props {
+  icon: (props: Record<string, unknown>) => unknown;
+  tone?: 'gold' | 'blush' | 'plum';
+  size?: number;
+  class?: string;
+  label?: string;
+}
+const { icon: Icon, tone = 'gold', size = 56, class: cls, label } = Astro.props;
+const iconSize = Math.round(size * 0.43);
+---
+<span
+  class:list={['icon-circle', `icon-circle-${tone}`, cls]}
+  style={`--ic:${size}px`}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+>
+  <Icon size={iconSize} stroke-width={1.5} aria-hidden="true" />
+</span>

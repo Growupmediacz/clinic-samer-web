@@ -1,7 +1,10 @@
 ---
+import SectionHeading from '../components/SectionHeading.astro';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
+import HeroArt from '../components/HeroArt.astro';
+import HelpBar from '../components/HelpBar.astro';
 import Faq from '../components/Faq.astro';
 import Steps from '../components/Steps.astro';
 import ServiceGrid from '../components/ServiceGrid.astro';
@@ -42,9 +45,7 @@ const situations = [
     </div>
     <div class="hero-photo rise" style="--i:1">
       <div class="blob" aria-hidden="true"></div>
-      <div class="photo photo-arch hero-art" data-parallax>
-        <Image src={img.heroArt} alt="Květinová ilustrace ženského reprodukčního systému" widths={[440, 660, 880]} sizes="(max-width: 900px) 80vw, 440px" loading="eager" fetchpriority="high" />
-      </div>
+      <HeroArt alt="Květinová ilustrace ženského reprodukčního systému" />
       <a class="badge" href="/recenze">
         <b>4,9 / 5</b>
         <span>700+ ověřených recenzí na ZnámýLékař</span>
@@ -66,14 +67,14 @@ const situations = [
   <!-- S ČÍM PŘICHÁZÍTE -->
   <section class="wrap" style="padding-block:clamp(64px,9vw,104px) clamp(32px,5vw,56px)">
     <div class="stack" style="--gap:12px;max-width:640px;margin-bottom:48px" data-reveal>
-      <span class="eyebrow">Péče podle vaší situace</span>
-      <h2 class="h2">S čím přicházíte?</h2>
+      <SectionHeading eyebrow="Péče podle vaší situace" title="S čím přicházíte?" accent="přicházíte?" />
     </div>
     <div class="grid-auto" style="--min:250px" data-stagger>
       {situations.map((s) => (
         <a class:list={['card situation', s.cls]} href={s.href}>
           <span class="t">{s.t}</span>
-          <span class="d">{s.d} →</span>
+          <span class="d">{s.d}</span>
+          <span class="situation-arrow" aria-hidden="true">→</span>
         </a>
       ))}
     </div>
@@ -82,10 +83,11 @@ const situations = [
   <!-- SLUŽBY -->
   <section class="wrap" style="padding-block:clamp(32px,5vw,56px) clamp(64px,9vw,104px)">
     <div class="between" style="margin-bottom:40px" data-reveal>
-      <h2 class="h2 h2-sm" style="max-width:560px">Od prevence po cestu k rodičovství</h2>
+      <div class="stack" style="--gap:12px;max-width:560px"><SectionHeading eyebrow="Péče a služby" title="Od prevence po cestu k rodičovství" accent="k rodičovství" class="h2 h2-sm" /></div>
       <a class="link-arrow" href="/sluzby">Všechny služby</a>
     </div>
     <ServiceGrid />
+    <HelpBar text="Nevíte, kterou péči potřebujete?" link="Zavolejte nám" />
   </section>
 
   <!-- LÉKAŘ -->
@@ -95,8 +97,7 @@ const situations = [
         <Image src={img.ultrasound} alt="MUDr. Samer Asad při ultrazvukovém vyšetření" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:70% 55%" />
       </div>
       <div class="stack" style="--gap:24px" data-reveal>
-        <span class="eyebrow">Lékař, který zná váš příběh</span>
-        <h2 class="h2" style="font-size:clamp(34px,4vw,52px)">MUDr. Samer Asad</h2>
+        <SectionHeading eyebrow="Lékař, který zná váš příběh" title="MUDr. Samer Asad" style="font-size:clamp(34px,4vw,52px)" />
         <p class="lead">Atestovaný gynekolog a specialista na reprodukční medicínu. Každá cesta k rodičovství je jiná, proto staví péči na osobním vztahu, důkladném vysvětlení a návaznosti jednotlivých vyšetření.</p>
         <div class="num-list">
           <div><span class="no">01</span><span><strong>Jeden lékař, který zná váš příběh.</strong> <span>Vyšetření na sebe navazují, nezačínáte pokaždé znovu.</span></span></div>
@@ -119,8 +120,7 @@ const situations = [
   <section class="wrap section">
     <div class="between" style="margin-bottom:56px" data-reveal>
       <div class="stack" style="--gap:12px;max-width:640px">
-        <span class="eyebrow">Jednoduchý postup</span>
-        <h2 class="h2">Jak probíhá první návštěva</h2>
+        <SectionHeading eyebrow="Jednoduchý postup" title="Jak probíhá první návštěva" accent="první návštěva" />
       </div>
       <a class="link-arrow" href="/prvni-navsteva">Průběh vyšetření a vaše práva</a>
     </div>
@@ -132,8 +132,7 @@ const situations = [
     <div class="section">
       <div class="wrap between" style="margin-bottom:36px" data-reveal>
         <div class="stack" style="--gap:12px;max-width:600px">
-          <span class="eyebrow">Ověřené recenze ze ZnámýLékař</span>
-          <h2 class="h2">Zkušenosti žen, které nám důvěřily</h2>
+          <SectionHeading eyebrow="Ověřené recenze ze ZnámýLékař" title="Zkušenosti žen, které nám důvěřily" accent="důvěřily" />
         </div>
         <a class="link-arrow" href="/recenze">Všechny recenze</a>
       </div>
@@ -150,8 +149,7 @@ const situations = [
   <section class="wrap section">
     <div class="split">
       <div class="stack" data-reveal>
-        <span class="eyebrow">Naše největší radost</span>
-        <h2 class="h2" style="font-size:clamp(30px,3.6vw,44px)">Okamžiky, které dávají naší práci smysl</h2>
+        <SectionHeading eyebrow="Naše největší radost" title="Okamžiky, které dávají naší práci smysl" accent="smysl" style="font-size:clamp(30px,3.6vw,44px)" />
         <p class="muted">Děkujeme rodinám, které nám dovolily sdílet část svého příběhu. Fotografie jsou zveřejněny s jejich souhlasem.</p>
         <a class="link-arrow" href="/pribehy">Zobrazit galerii</a>
       </div>

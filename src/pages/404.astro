@@ -1,10 +1,10 @@
 ---
+import SectionHeading from '../components/SectionHeading.astro';
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Stránka nenalezena | Clinic Samer" description="Požadovaná stránka neexistuje." noindex>
   <section class="wrap-narrow section stack" style="align-items:center;text-align:center;min-height:50vh;justify-content:center">
-    <span class="eyebrow">Chyba 404</span>
-    <h1 class="h1">Tuhle stránku jsme nenašli</h1>
+    <SectionHeading as="h1" eyebrow="Chyba 404" title="Tuhle stránku jsme nenašli" accent="nenašli" align="center" animate={false} />
     <p class="lead">Možná byla přesunuta při úpravě webu. Zkuste to z úvodní stránky nebo se rovnou objednejte.</p>
     <div class="row" style="justify-content:center">
       <a class="btn btn-primary" href="/">Zpět na úvod</a>

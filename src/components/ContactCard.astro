@@ -1,6 +1,8 @@
 ---
 import { site, dayNames, bookingUrl, type Lang } from '../data/site';
 import { ui } from '../i18n';
+import { MapPin, Clock, Phone } from '@lucide/astro';
+import IconCircle from './IconCircle.astro';
 interface Props { lang?: Lang; mapHeight?: number }
 const { lang = 'cs', mapHeight = 180 } = Astro.props;
 const t = ui[lang].card;
@@ -9,12 +11,12 @@ const calendar = lang === 'cs' ? { href: '/objednat' } : { href: bookingUrl(`${l
 ---
 <div class="info-card" data-hours={site.hours ? JSON.stringify(site.hours) : undefined} data-lang={lang}>
   <dl>
-    <div>
-      <dt>{t.address}</dt>
+    <div class="info-row">
+      <dt><IconCircle icon={MapPin} size={44} />{t.address}</dt>
       <dd><a href={site.mapsUrl} target="_blank" rel="noopener" data-track="click_map" dir="ltr">{site.street}, {site.zip} {site.city}</a></dd>
     </div>
-    <div>
-      <dt>{t.hours}</dt>
+    <div class="info-row">
+      <dt><IconCircle icon={Clock} size={44} />{t.hours}</dt>
       <dd>
         {site.hours ? (
           <>
@@ -30,8 +32,8 @@ const calendar = lang === 'cs' ? { href: '/objednat' } : { href: bookingUrl(`${l
         )}
       </dd>
     </div>
-    <div>
-      <dt>{t.contact}</dt>
+    <div class="info-row">
+      <dt><IconCircle icon={Phone} size={44} />{t.contact}</dt>
       <dd><a href={site.phoneHref} data-track="click_call">{site.phone}</a> · <a href={`mailto:${site.email}`}>{site.email}</a></dd>
     </div>
   </dl>

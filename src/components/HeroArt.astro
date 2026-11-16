@@ -1,0 +1,25 @@
+---
+/**
+ * Úvodní ilustrace s „papírovým 3D“: statický obrázek je LCP, vrstvy (tělo + květy)
+ * se načtou až po události load a na pohyb myši / scroll se posouvají v hloubce.
+ * Bez JS, s reduced-motion nebo šetřením dat zůstává jen statický obrázek.
+ */
+import { Image, getImage } from 'astro:assets';
+import { img } from '../data/images';
+import body from '../assets/images/hero-3d/body.webp';
+import front from '../assets/images/hero-3d/front.webp';
+
+interface Props { alt: string }
+const { alt } = Astro.props;
+
+const widths = [440, 660, 880];
+const sizes = '(max-width: 900px) 80vw, 440px';
+const srcset = async (src: ImageMetadata) =>
+  (await Promise.all(widths.map((width) => getImage({ src, width, format: 'webp' }))))
+    .map((r, i) => `${r.src} ${widths[i]}w`).join(', ');
+const layers = JSON.stringify([await srcset(body), await srcset(front)]);
+---
+<div class="photo photo-arch hero-art" data-parallax data-depth={layers} data-sizes={sizes}>
+  <Image class="hero-base" src={img.heroArt} alt={alt} widths={widths} sizes={sizes} loading="eager" fetchpriority="high" />
+  <div class="hero-layers" aria-hidden="true"></div>
+</div>

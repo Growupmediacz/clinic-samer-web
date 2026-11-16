@@ -1,4 +1,5 @@
 ---
+import SectionHeading from '../components/SectionHeading.astro';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
@@ -28,7 +29,7 @@ const rights = [
   description="Jak probíhá první návštěva u gynekologa v Praze 4: objednání, co si vzít s sebou, průběh vyšetření a vaše práva včetně doprovodu a přítomnosti sestry."
   breadcrumbs={crumbs}
 >
-  <PageHero eyebrow="Jednoduchý postup" title="První návštěva: co vás čeká" crumbs={crumbs}
+  <PageHero eyebrow="Jednoduchý postup" title="První návštěva: co vás čeká" accent="co vás čeká" crumbs={crumbs}
     lead="Od objednání až po další péči vždy víte, co vás čeká a na koho se můžete obrátit. Otevřeně popisujeme i průběh vyšetření a vaše práva.">
     <a class="btn btn-primary" data-magnetic href="/objednat" data-track="click_book">Objednat první návštěvu</a>
     <div slot="aside" class="photo photo-leaf-r rise" style="height:clamp(300px,36vw,440px);--i:1">
@@ -44,8 +45,7 @@ const rights = [
   <section class="bg-plum">
     <div class="wrap split" style="padding-block:clamp(64px,8vw,96px);align-items:start">
       <div class="stack" data-reveal>
-        <span class="eyebrow">Příprava</span>
-        <h2 class="h2">Co si vzít s sebou</h2>
+        <SectionHeading eyebrow="Příprava" title="Co si vzít s sebou" accent="s sebou" />
         <p class="lead">Nic z toho není podmínkou. Čím víc ale budeme vědět, tím lépe vám dokážeme poradit hned při první návštěvě.</p>
       </div>
       <ul class="plain-list" data-reveal>
@@ -61,8 +61,7 @@ const rights = [
 
   <section class="wrap split section" style="align-items:start;gap:64px" id="prubeh-vysetreni">
     <div class="stack sticky-col" style="--gap:16px" data-reveal>
-      <span class="eyebrow">Průběh vyšetření</span>
-      <h2 class="h2">Jak vyšetření probíhá krok za krokem</h2>
+      <SectionHeading eyebrow="Průběh vyšetření" title="Jak vyšetření probíhá krok za krokem" accent="krok za krokem" />
       <p class="muted">Gynekologické vyšetření je intimní záležitost. Proto chceme, abyste předem věděla, jak bude probíhat, a mohla se kdykoli zeptat nebo říct „stop“.</p>
     </div>
     <ol class="timeline">
@@ -75,8 +74,7 @@ const rights = [
   <section class="bg-sage" id="vase-prava">
     <div class="wrap section">
       <div class="stack" style="--gap:12px;max-width:680px;margin-bottom:48px" data-reveal>
-        <span class="eyebrow">Vaše práva</span>
-        <h2 class="h2">Na co máte v ordinaci právo</h2>
+        <SectionHeading eyebrow="Vaše práva" title="Na co máte v ordinaci právo" accent="právo" />
         <p>Dobrá péče stojí na důvěře a respektu. Tato práva platí při každé návštěvě, ne jen při té první.</p>
       </div>
       <div class="grid-auto" style="--min:300px" data-stagger>

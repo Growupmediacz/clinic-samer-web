@@ -1,13 +1,40 @@
 ---
+/**
+ * Kroky (např. první návštěva): kruh s ikonkou + zlaté číslo na okraji, kroky propojené vlnitou
+ * zlatou čarou, která se kreslí se scrollem. Na mobilu svisle jako timeline s čarou vlevo.
+ */
+import { MessageCircle, CalendarCheck, Stethoscope, HeartHandshake } from '@lucide/astro';
 interface Props { steps: { title: string; text: string }[] }
 const { steps } = Astro.props;
+const icons = [MessageCircle, CalendarCheck, Stethoscope, HeartHandshake];
+const n = steps.length;
+// Vlnka prochází středy kruhů (sloupce stejné šířky → středy v (i + 0,5) / n)
+const xs = steps.map((_, i) => ((i + 0.5) / n) * 1000);
+const d = xs.reduce((acc, x, i) => {
+  if (i === 0) return `M ${x} 60`;
+  const px = xs[i - 1], dx = (x - px) / 2, up = i % 2 ? -46 : 46;
+  return `${acc} C ${px + dx * 0.5} ${60 + up}, ${x - dx * 0.5} ${60 + up}, ${x} 60`;
+}, '');
 ---
-<ol class="steps">
-  {steps.map((s, i) => (
-    <li>
-      <span class="no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-      <h3>{s.title}</h3>
-      <p>{s.text}</p>
-    </li>
-  ))}
-</ol>
+<div class="steps-flow" data-draw style={`--n:${n}`}>
+  <svg class="steps-wave" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <path d={d} />
+  </svg>
+  <ol class="steps" data-stagger>
+    {steps.map((s, i) => {
+      const Icon = icons[i % icons.length];
+      return (
+        <li>
+          <span class="step-circle" aria-hidden="true">
+            <Icon size={38} stroke-width={1.5} />
+            <span class="step-no">{i + 1}</span>
+          </span>
+          <div class="step-body">
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        </li>
+      );
+    })}
+  </ol>
+</div>

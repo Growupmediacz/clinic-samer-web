@@ -1,4 +1,5 @@
 ---
+import SectionHeading from '../components/SectionHeading.astro';
 import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
 import PageHero from '../components/PageHero.astro';
@@ -11,14 +12,13 @@ const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Ceník', href: '/cenik' }
   description="Co hradí pojišťovna a kolik stojí samoplátecké výkony: konzultace neplodnosti, 4D ultrazvuk, CO₂ laser, online konzultace. Přehled smluvních pojišťoven."
   breadcrumbs={crumbs}
 >
-  <PageHero eyebrow="Ceník a pojišťovny" title="O ceně víte vždy předem" crumbs={crumbs} narrow
+  <PageHero eyebrow="Ceník a pojišťovny" title="O ceně víte vždy předem" accent="vždy předem" crumbs={crumbs} narrow
     lead="Běžná gynekologická péče je u smluvních pojišťoven hrazena z veřejného zdravotního pojištění. U samopláteckých vyšetření a zákroků vás vždy předem informujeme o ceně." />
 
   <section class="wrap-narrow section">
     <div class="stack" style="align-items:stretch;--gap:56px">
       <div class="stack" style="align-items:stretch" data-reveal>
-        <span class="eyebrow">Část 1</span>
-        <h2 class="h2">Hrazeno z pojištění</h2>
+        <SectionHeading eyebrow="Část 1" title="Hrazeno z pojištění" accent="z pojištění" />
         <ul class="check-list" style="margin-top:8px">{covered.map((c) => <li>{c}</li>)}</ul>
         <h3 class="h3" style="margin-top:24px">Smluvní pojišťovny</h3>
         <ul class="plain-list">
@@ -27,8 +27,7 @@ const crumbs = [{ name: 'Úvod', href: '/' }, { name: 'Ceník', href: '/cenik' }
       </div>
 
       <div class="stack" style="align-items:stretch" data-reveal>
-        <span class="eyebrow">Část 2</span>
-        <h2 class="h2">Samoplátecké výkony</h2>
+        <SectionHeading eyebrow="Část 2" title="Samoplátecké výkony" accent="výkony" />
         <ul class="plain-list">
           {priceList.map((p) => (
             <li><span><strong style="font-weight:600;color:var(--color-plum-900)">{p.item}</strong><br /><span class="small muted">{p.note}</span></span><span>{p.price}</span></li>

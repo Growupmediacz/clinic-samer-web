@@ -1,0 +1,14 @@
+---
+/** Mini-CTA lišta pod sekcí: kroužek s fotkou pana doktora + otázka + odkaz (výchozí: zavolat). */
+import { Image } from 'astro:assets';
+import face from '../assets/images/doctor-face.webp';
+import { site } from '../data/site';
+interface Props { text: string; link: string; href?: string }
+const { text, link, href = site.phoneHref } = Astro.props;
+---
+<div class="help-bar-wrap" data-reveal>
+  <p class="help-bar">
+    <Image src={face} alt="" width={48} height={48} densities={[1, 2]} loading="lazy" class="help-face" />
+    <span>{text} <a href={href} data-track={href.startsWith('tel:') ? 'click_call' : undefined}>{link} <span class="arr" aria-hidden="true">→</span></a></span>
+  </p>
+</div>

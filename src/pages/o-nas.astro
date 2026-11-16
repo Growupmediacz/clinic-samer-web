@@ -1,4 +1,5 @@
 ---
+import SectionHeading from '../components/SectionHeading.astro';
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Cta from '../components/Cta.astro';
@@ -22,8 +23,7 @@ const values = [
       <nav class="breadcrumbs" aria-label="Drobečková navigace"><a href="/">Úvod</a><span aria-hidden="true">/</span><span aria-current="page">O nás</span></nav>
       <div class="page-hero split" style="gap:64px">
         <div class="stack" style="--gap:22px">
-          <span class="eyebrow rise">Lékař, který zná váš příběh</span>
-          <h1 class="h1 rise" style="--i:1">MUDr. Samer Asad</h1>
+          <SectionHeading as="h1" eyebrow="Lékař, který zná váš příběh" title="MUDr. Samer Asad" class="h1 rise" style="--i:1" eyebrowClass="rise" animate={false} />
           <p class="serif rise" style="font-size:22px;color:var(--color-plum-900);--i:2">Atestovaný gynekolog a specialista na reprodukční medicínu</p>
           <p class="lead rise" style="--i:2">Každá cesta k rodičovství je jiná. Proto pan doktor staví péči na osobním vztahu, důkladném vysvětlení a návaznosti jednotlivých vyšetření.</p>
           <div class="row rise" style="--i:3">
@@ -76,8 +76,7 @@ const values = [
       <Image src={img.nurse} alt="Zdravotní sestra Nataliia Asad s pacientkou a její holčičkou v ordinaci" widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:50% 30%" />
     </div>
     <div class="stack" data-reveal>
-      <span class="eyebrow">První kontakt a opora v ordinaci</span>
-      <h2 class="h2">Nataliia Asad, DiS.</h2>
+      <SectionHeading eyebrow="První kontakt a opora v ordinaci" title="Nataliia Asad, DiS." />
       <p class="serif" style="font-size:20px;color:var(--color-plum-900)">Zdravotní sestra · asistence při vyšetřeních a péče o pacientky</p>
       <p class="muted">Zdravotní sestra je často první osobou, na kterou se při návštěvě obrátíte. Pomůže vám s organizací termínu, přípravou na vyšetření i praktickými otázkami spojenými s návštěvou ordinace.</p>
       <p class="muted">Během vyšetření zajišťuje citlivou asistenci a dbá na to, abyste se v ordinaci cítila klidně a bezpečně.</p>
@@ -92,8 +91,7 @@ const values = [
   <section class="bg-sage">
     <div class="wrap section split">
       <div class="stack" data-reveal>
-        <span class="eyebrow">Ordinace</span>
-        <h2 class="h2">Ultrazvuk i odběry přímo v ordinaci</h2>
+        <SectionHeading eyebrow="Ordinace" title="Ultrazvuk i odběry přímo v ordinaci" accent="přímo v ordinaci" />
         <p>Ordinace sídlí na adrese {site.street} v Praze 4 – Braníku. Důležitá vyšetření včetně ultrazvuku a krevních odběrů probíhají na místě, takže nemusíte zbytečně přejíždět mezi pracovišti.</p>
         <div class="row">
           <a class="btn btn-primary" href="/kontakt">Kde nás najdete</a>

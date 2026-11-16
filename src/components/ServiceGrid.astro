@@ -1,18 +1,34 @@
 ---
+import { Baby, HeartPulse, Stethoscope, ShieldPlus, Activity, Scale, Sparkles, Video } from '@lucide/astro';
+import IconCircle from './IconCircle.astro';
 import { services } from '../data/services';
 import { pagePath, type Lang } from '../data/site';
 import { dict } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'cs' } = Astro.props;
+const icons: Record<string, typeof Baby> = {
+  'tehotenska-poradna-ultrazvuk': Baby,
+  'lecba-neplodnosti': HeartPulse,
+  'ambulantni-gynekologie': Stethoscope,
+  'nitrodelozni-telisko': ShieldPlus,
+  'hormonalni-poruchy': Activity,
+  'obezitologicka-poradna': Scale,
+  'co2-laser-gynekologie': Sparkles,
+  'online-konzultace': Video,
+};
 ---
 <div class="svc-grid" data-stagger>
   {services.map((s) => {
     const x = lang === 'cs' ? s : dict[lang].items[s.slug];
     return (
       <a class="svc" href={lang === 'cs' ? `/sluzby/${s.slug}` : `${pagePath('services', lang)}#${s.slug}`}>
-        <span class="no" aria-hidden="true">{s.no}</span>
+        <span class="svc-top">
+          <IconCircle icon={icons[s.slug] ?? Stethoscope} size={52} tone="blush" />
+          <span class="no" aria-hidden="true">{s.no}</span>
+        </span>
         <span class="n">{x.name}</span>
         <span class="d">{x.short}</span>
+        <span class="svc-arrow" aria-hidden="true">→</span>
       </a>
     );
   })}

@@ -1,4 +1,5 @@
 ---
+import SectionHeading from '../../components/SectionHeading.astro';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
@@ -18,8 +19,7 @@ const crumbs = [{ name: d.ui.home, href: pagePath('home', lang) }, { name: d.ui.
       <nav class="breadcrumbs" aria-label="Breadcrumbs"><a href={crumbs[0].href}>{crumbs[0].name}</a><span aria-hidden="true">/</span><span aria-current="page">{crumbs[1].name}</span></nav>
       <div class="page-hero split" style="gap:64px">
         <div class="stack" style="--gap:22px">
-          <span class="eyebrow rise">{d.home.doctorEyebrow}</span>
-          <h1 class="h1 rise" style="--i:1" dir="ltr">MUDr. Samer Asad</h1>
+          <SectionHeading as="h1" eyebrow={d.home.doctorEyebrow} title="MUDr. Samer Asad" class="h1 rise" style="--i:1" dir="ltr" eyebrowClass="rise" animate={false} />
           <p class="serif rise" style="font-size:22px;color:var(--color-plum-900);--i:2">{t.role}</p>
           <p class="lead rise" style="--i:2">{t.lead}</p>
           <a class="btn btn-primary rise" style="--i:3" data-magnetic href={bookingUrl(`${lang}-about`)} target="_blank" rel="noopener" data-track="click_book">{d.ui.book}</a>
@@ -49,8 +49,7 @@ const crumbs = [{ name: d.ui.home, href: pagePath('home', lang) }, { name: d.ui.
         <Image src={img.nurse} alt={t.nurseAlt} widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:50% 30%" />
       </div>
       <div class="stack" data-reveal>
-        <span class="eyebrow">{t.nurseEyebrow}</span>
-        <h2 class="h2" dir="ltr">Nataliia Asad, DiS.</h2>
+        <SectionHeading eyebrow={t.nurseEyebrow} title="Nataliia Asad, DiS." dir="ltr" />
         <p>{t.nurseText}</p>
         <ul class="check-list">{t.nurseList.map((q) => <li>{q}</li>)}</ul>
       </div>

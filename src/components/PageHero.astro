@@ -1,7 +1,8 @@
 ---
+import SectionHeading from './SectionHeading.astro';
 interface Crumb { name: string; href: string }
-interface Props { eyebrow?: string; title: string; lead?: string; tone?: 'cream' | 'blush' | 'sage' | 'plum'; crumbs?: Crumb[]; narrow?: boolean }
-const { eyebrow, title, lead, tone = 'blush', crumbs, narrow = false } = Astro.props;
+interface Props { eyebrow?: string; title: string; accent?: string; lead?: string; tone?: 'cream' | 'blush' | 'sage' | 'plum'; crumbs?: Crumb[]; narrow?: boolean }
+const { eyebrow, title, accent, lead, tone = 'blush', crumbs, narrow = false } = Astro.props;
 const bg = { cream: '', blush: 'bg-blush', sage: 'bg-sage', plum: 'bg-plum' }[tone];
 ---
 <section class={bg}>
@@ -15,8 +16,7 @@ const bg = { cream: '', blush: 'bg-blush', sage: 'bg-sage', plum: 'bg-plum' }[to
     )}
     <div class="page-hero split">
       <div class="stack" style="--gap:22px">
-        {eyebrow && <span class="eyebrow rise">{eyebrow}</span>}
-        <h1 class="h1 rise" style="--i:1">{title}</h1>
+        <SectionHeading as="h1" eyebrow={eyebrow} title={title} accent={accent} class="h1 rise" style="--i:1" eyebrowClass="rise" animate={false} />
         {lead && <p class="lead rise" style="--i:2">{lead}</p>}
         <slot />
       </div>

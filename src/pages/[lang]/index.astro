@@ -1,4 +1,8 @@
 ---
+import SectionHeading from '../../components/SectionHeading.astro';
+import HeroArt from '../../components/HeroArt.astro';
+import HelpBar from '../../components/HelpBar.astro';
+import Steps from '../../components/Steps.astro';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
@@ -7,7 +11,7 @@ import ServiceGrid from '../../components/ServiceGrid.astro';
 import ReviewCard from '../../components/ReviewCard.astro';
 import Ultrasound8k from '../../components/Ultrasound8k.astro';
 import { site, bookingUrl, pagePath, INTL, type IntlLang } from '../../data/site';
-import { dict } from '../../i18n';
+import { dict, ui } from '../../i18n';
 import { img } from '../../data/images';
 import { clinicSchema, faqSchema } from '../../data/schema';
 import reviews from '../../data/reviews.json';
@@ -33,9 +37,7 @@ const sep = lang === 'en' ? '.' : ',';
     </div>
     <div class="hero-photo rise" style="--i:1">
       <div class="blob" aria-hidden="true"></div>
-      <div class="photo photo-arch hero-art" data-parallax>
-        <Image src={img.heroArt} alt={t.heroAlt} widths={[440, 660, 880]} sizes="(max-width: 900px) 80vw, 440px" loading="eager" fetchpriority="high" />
-      </div>
+      <HeroArt alt={t.heroAlt} />
       <a class="badge" href={site.zlProfile} target="_blank" rel="noopener"><b dir="ltr">4{sep}9 / 5</b><span>{t.ratingText}</span></a>
     </div>
   </section>
@@ -51,10 +53,11 @@ const sep = lang === 'en' ? '.' : ',';
 
   <section class="wrap section">
     <div class="between" style="margin-bottom:40px" data-reveal>
-      <div class="stack" style="--gap:12px;max-width:640px"><span class="eyebrow">{t.careEyebrow}</span><h2 class="h2">{t.careTitle}</h2></div>
+      <div class="stack" style="--gap:12px;max-width:640px"><SectionHeading eyebrow={t.careEyebrow} title={t.careTitle} /></div>
       <a class="link-arrow" href={pagePath('services', lang)}>{d.ui.allServices}</a>
     </div>
     <ServiceGrid lang={lang} />
+    <HelpBar text={ui[lang].notSure} link={ui[lang].cta.call} />
   </section>
 
   <section class="bg-plum">
@@ -63,8 +66,7 @@ const sep = lang === 'en' ? '.' : ',';
         <Image src={img.ultrasound} alt={t.doctorAlt} widths={[480, 720, 1080]} sizes="(max-width: 900px) 92vw, 540px" style="object-position:70% 55%" />
       </div>
       <div class="stack" style="--gap:24px" data-reveal>
-        <span class="eyebrow">{t.doctorEyebrow}</span>
-        <h2 class="h2" style="font-size:clamp(34px,4vw,52px)" dir="ltr">MUDr. Samer Asad</h2>
+        <SectionHeading eyebrow={t.doctorEyebrow} title="MUDr. Samer Asad" style="font-size:clamp(34px,4vw,52px)" dir="ltr" />
         <p class="lead">{t.doctorLead}</p>
         <div class="num-list">
           {t.values.map(([a, b], i) => <div><span class="no">{String(i + 1).padStart(2, '0')}</span><span><strong>{a}</strong> <span>{b}</span></span></div>)}
@@ -78,16 +80,14 @@ const sep = lang === 'en' ? '.' : ',';
   <Ultrasound8k compact lang={lang} />
 
   <section class="wrap section">
-    <div class="stack" style="--gap:12px;max-width:640px;margin-bottom:56px" data-reveal><span class="eyebrow">{t.stepsEyebrow}</span><h2 class="h2">{t.stepsTitle}</h2></div>
-    <ol class="steps">
-      {t.steps.map(([a, b], i) => <li><span class="no" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><h3>{a}</h3><p>{b}</p></li>)}
-    </ol>
+    <div class="stack" style="--gap:12px;max-width:640px;margin-bottom:56px" data-reveal><SectionHeading eyebrow={t.stepsEyebrow} title={t.stepsTitle} /></div>
+    <Steps steps={t.steps.map(([title, text]) => ({ title, text }))} />
   </section>
 
   <section class="bg-blush">
     <div class="wrap section">
       <div class="between" style="margin-bottom:40px" data-reveal>
-        <div class="stack" style="--gap:12px"><span class="eyebrow">{t.reviewsEyebrow}</span><h2 class="h2">{t.reviewsTitle}</h2></div>
+        <div class="stack" style="--gap:12px"><SectionHeading eyebrow={t.reviewsEyebrow} title={t.reviewsTitle} /></div>
         <a class="link-arrow" href={site.zlProfile} target="_blank" rel="noopener">{t.allReviews}</a>
       </div>
       <div class="grid-auto" style="--min:320px" data-stagger>{enReviews.map((r) => <ReviewCard review={r} lang={lang} />)}</div>

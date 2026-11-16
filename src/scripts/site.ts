@@ -125,18 +125,18 @@ function initMotion() {
   $$('[data-stagger]').forEach((g) => Array.from(g.children).forEach((c, i) => {
     (c as HTMLElement).dataset.reveal = ''; (c as HTMLElement).style.setProperty('--d', `${i * 80}ms`);
   }));
-  $$('.steps').forEach((s) => { s.dataset.reveal = 'line'; Array.from(s.children).forEach((c, i) => (c as HTMLElement).style.setProperty('--i', String(i))); });
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (!e.isIntersecting) return;
     e.target.classList.add('is-in'); io.unobserve(e.target);
     if ((e.target as HTMLElement).dataset.count) countUp(e.target as HTMLElement);
   }), { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
-  $$('[data-reveal], [data-count]').forEach((el) => io.observe(el));
+  $$('[data-reveal], [data-count], [data-words]').forEach((el) => io.observe(el));
 
   // Časová osa se vykresluje se scrollem
   const timelines = $$('.timeline');
+  const draws = $$('[data-draw]');
   const hero = $('[data-parallax]');
-  if ((timelines.length || hero) && !reduced()) {
+  if ((timelines.length || draws.length || hero) && !reduced()) {
     let ticking = false;
     const update = () => {
       ticking = false;
@@ -145,7 +145,13 @@ function initMotion() {
         const p = Math.min(1, Math.max(0, (innerHeight * 0.75 - r.top) / r.height));
         t.style.setProperty('--progress', p.toFixed(3));
       });
+      draws.forEach((d) => {
+        const r = d.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.25)));
+        d.style.setProperty('--draw', p.toFixed(3));
+      });
       if (hero && innerWidth > 900) hero.style.transform = `translateY(${Math.min(scrollY * 0.06, 40)}px)`;
+      if (hero) hero.style.setProperty('--sy', Math.min(scrollY / 600, 1).toFixed(3));
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     addEventListener('scroll', onScroll, { passive: true });
@@ -163,6 +169,49 @@ function initMotion() {
       b.addEventListener('mouseleave', () => { b.style.transform = ''; });
     });
   }
+}
+/** Papírové 3D v hero: vrstvy se načtou po load, myší se ilustrace jemně naklání. */
+function initHero3D() {
+  const el = $('[data-depth]');
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  if (!el || reduced() || conn?.saveData) return;
+  const box = $('.hero-layers', el)!;
+  const start = () => {
+    const imgs = (JSON.parse(el.dataset.depth!) as string[]).map((srcset, i) => {
+      const im = new Image();
+      im.alt = ''; im.decoding = 'async'; im.className = i ? 'l-front' : 'l-body';
+      im.sizes = el.dataset.sizes!; im.srcset = srcset;
+      return im;
+    });
+    Promise.all(imgs.map((im) => im.decode())).then(() => {
+      if (!el.isConnected) return;
+      box.append(...imgs);
+      requestAnimationFrame(() => {
+        el.classList.add('is-3d');
+        setTimeout(() => el.classList.add('is-3d-done'), 650);
+      });
+    }).catch(() => { /* bez vrstev zůstane statický obrázek */ });
+  };
+  const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(start, { timeout: 2000 }) : setTimeout(start, 300));
+  if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
+
+  // Náklon za myší – jen zařízení s myší; plynulé dobíhání přes lerp
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const area = el.closest('section') || el;
+  let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+  const tick = () => {
+    x += (tx - x) * 0.08; y += (ty - y) * 0.08;
+    el.style.setProperty('--mx', x.toFixed(4)); el.style.setProperty('--my', y.toFixed(4));
+    raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
+  };
+  const kick = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  area.addEventListener('pointermove', (e) => {
+    const r = el.getBoundingClientRect();
+    tx = Math.max(-1, Math.min(1, ((e as PointerEvent).clientX - r.left - r.width / 2) / (r.width * 0.9)));
+    ty = Math.max(-1, Math.min(1, ((e as PointerEvent).clientY - r.top - r.height / 2) / (r.height * 0.9)));
+    kick();
+  });
+  area.addEventListener('pointerleave', () => { tx = 0; ty = 0; kick(); });
 }
 function countUp(el: HTMLElement) {
   const target = parseFloat(el.dataset.count!), dec = Number(el.dataset.decimals || 0);
@@ -289,7 +338,7 @@ function initDueDate() {
 
 function init() {
   document.documentElement.classList.add('js');
-  initCookies(); initTracking(); initNav(); initMotion(); initFilters(); initFaqSearch();
+  initCookies(); initTracking(); initNav(); initMotion(); initHero3D(); initFilters(); initFaqSearch();
   initMaps(); initHours(); initLightbox(); initWizard(); initDueDate();
 }
 document.addEventListener('astro:page-load', init);

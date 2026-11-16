@@ -1,0 +1,61 @@
+---
+/**
+ * Jednotná hlavička sekce: eyebrow v pill štítku se zlatou tečkou + serifový nadpis.
+ * `accent` = část `title`, která se vysází kurzívou ve zlaté (musí se v titulku vyskytovat doslova).
+ * Slova nadpisu při scrollu vyjíždějí zespodu přes masku (bez JS / s reduced-motion jsou hned vidět).
+ * Renderuje dva sourozence (bez obalu), takže rozvržení určuje rodičovský .stack.
+ */
+type Tag = 'h1' | 'h2' | 'h3';
+interface Props {
+  eyebrow?: string;
+  title: string;
+  accent?: string;
+  as?: Tag;
+  /** Třídy nadpisu, výchozí podle úrovně (h1 → .h1, jinak .h2). */
+  class?: string;
+  style?: string;
+  dir?: 'ltr' | 'rtl';
+  align?: 'start' | 'center';
+  /** false = bez animace slov (např. nadpis nad ohybem, který má vlastní .rise). */
+  animate?: boolean;
+  eyebrowClass?: string;
+  eyebrowStyle?: string;
+}
+const {
+  eyebrow, title, accent, as: Tag = 'h2', class: cls, style, dir, align = 'start', animate = true,
+  eyebrowClass, eyebrowStyle,
+} = Astro.props;
+
+// Rozdělit titulek na [před, akcent, po] a pak na slova
+const at = accent ? title.indexOf(accent) : -1;
+const parts = at < 0
+  ? [{ text: title, em: false }]
+  : [
+      { text: title.slice(0, at), em: false },
+      { text: accent!, em: true },
+      { text: title.slice(at + accent!.length), em: false },
+    ].filter((p) => p.text);
+let wi = 0;
+const words = parts.map((p) => ({ em: p.em, words: p.text.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, i: wi++ })) }));
+const headingClass = [cls ?? (Tag === 'h1' ? 'h1' : 'h2'), 'sh-title', align === 'center' && 'sh-center'];
+---
+{eyebrow && (
+  <span class:list={['eyebrow eyebrow-pill', align === 'center' && 'sh-center', eyebrowClass]} style={eyebrowStyle}>
+    <span class="eyebrow-dot" aria-hidden="true"></span>{eyebrow}
+  </span>
+)}
+{animate ? (
+  <Tag class:list={headingClass} style={style} dir={dir} data-words>
+    {words.map((g, gi) => {
+      const inner = g.words.map(({ w, i }, k) => (
+        <><span class="w"><span style={`--wi:${i}`}>{w}</span></span>{k < g.words.length - 1 ? ' ' : ''}</>
+      ));
+      const sep = gi < words.length - 1 ? ' ' : '';
+      return g.em ? <><em>{inner}</em>{sep}</> : <>{inner}{sep}</>;
+    })}
+  </Tag>
+) : (
+  <Tag class:list={headingClass} style={style} dir={dir}>
+    {parts.map((p) => (p.em ? <em>{p.text}</em> : p.text))}
+  </Tag>
+)}
