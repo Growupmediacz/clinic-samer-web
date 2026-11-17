@@ -10,6 +10,7 @@ Vícestránkový web MUDr. Samera Asada (Praha 4 – Braník). Nahrazuje původn
 - View Transitions (`<ClientRouter />`) → skripty se inicializují na `astro:page-load`
 
 ## Příkazy
+- Node.js ≥ 22.23.4 (vyžaduje Astro 7; `brew upgrade node@22`)
 - `npm run dev` – vývoj na http://localhost:4321
 - `npm run check` – typová kontrola (musí projít bez chyb)
 - `npm run build` – build do `dist/`
